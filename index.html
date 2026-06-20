@@ -4,16 +4,420 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pocket Edit</title>
+
+<style>
+        .top-bar {
+            background: #06070a !important;
+            height: 75px !important;
+            border-bottom: 2px solid #1f232b !important;
+            padding: 0 25px !important;
+        }
+
+        .patch-info {
+            background: #020406;
+            border: 2px solid #10151c;
+            padding: 8px 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: inset 0 0 15px rgba(0, 255, 245, 0.08);
+            min-width: 380px;
+        }
+
+        .patch-number {
+            font-family: 'Courier New', monospace, sans-serif !important;
+            font-size: 32px !important;
+            font-weight: bold !important;
+            color: #00fff5 !important;
+            background: transparent !important;
+            border: none !important;
+            padding: 0 !important;
+            text-shadow: 0 0 10px rgba(0, 255, 245, 0.6) !important;
+            letter-spacing: 1px;
+        }
+
+        .patch-name {
+            font-family: 'Segoe UI', system-ui, sans-serif !important;
+            font-size: 18px !important;
+            font-weight: 900 !important;
+            color: #cbd5e1 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 2px !important;
+            text-shadow: 0 0 4px rgba(203, 213, 225, 0.2);
+        }
+
+        #darkstar-stomp-rack {
+            background: linear-gradient(180deg, #0d1016, #090b0e);
+            border-top: 2px solid #1f232b;
+            border-bottom: 2px solid #000;
+            padding: 15px 25px;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            color: #e0e0e0;
+            text-align: left;
+            margin-top: -2px;
+            box-shadow: inset 0 10px 30px rgba(0,0,0,0.7);
+        }
+
+        #darkstar-stomp-rack h3 {
+            margin: 0 0 15px 0;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #00adb5;
+            letter-spacing: 2.5px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        #stomp-matrix-container {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+            width: 100%;
+        }
+
+        .darkstar-stompbox {
+            background: #171920;
+            border: 1px solid #22252e;
+            border-radius: 8px;
+            padding: 10px 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 120px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.4);
+            transition: transform 0.1s;
+        }
+        .darkstar-stompbox:hover { transform: translateY(-2px); border-color: #333; }
+
+        .stomp-name {
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #94a3b8;
+            margin-bottom: 4px;
+        }
+
+        .stomp-led {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #200d0d;
+            border: 1px solid #000;
+            margin-bottom: 5px;
+        }
+        .stomp-led.active {
+            background: #ff2222;
+            box-shadow: 0 0 10px #ff2222, inset 0 0 2px #fff;
+        }
+
+        .stomp-footswitch {
+            width: 36px;
+            height: 32px;
+            border: 3px solid #0b0c10;
+            border-radius: 50%;
+            cursor: pointer;
+            background: radial-gradient(circle, #8e929c 30%, #4a4c54 80%);
+            box-shadow: 0 3px 5px rgba(0,0,0,0.5);
+            margin-bottom: 5px;
+        }
+        .stomp-footswitch:active { transform: scale(0.92); }
+
+        .stomp-mapping-label {
+            font-size: 8px;
+            font-family: monospace;
+            color: #475569;
+            background: #07080b;
+            padding: 1px 4px;
+            border-radius: 2px;
+            margin-bottom: 5px;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .darkstar-learn-btn {
+            font-size: 8px;
+            font-weight: bold;
+            color: #64748b;
+            background: #0b0c10;
+            border: 1px solid #22252e;
+            padding: 3px 0;
+            border-radius: 3px;
+            cursor: pointer;
+            text-transform: uppercase;
+            width: 100%;
+            text-align: center;
+        }
+        .darkstar-learn-btn:hover { background: #1a1e2a; color: #fff; }
+        .darkstar-learn-btn.listening {
+            background: #ef4444;
+            color: #fff;
+            animation: stompPulse 1.5s infinite;
+        }
+
+        .darkstar-sidebar-select-group {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px dashed #333;
+            text-align: left;
+        }
+        .darkstar-sidebar-select-group label {
+            font-size: 9px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #64748b;
+            display: block;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+        .darkstar-sidebar-select {
+            width: 100%;
+            background: #07080b;
+            border: 1px solid #252936;
+            border-radius: 4px;
+            color: #00fff5;
+            padding: 6px;
+            font-size: 11px;
+            outline: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        @keyframes stompPulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+    </style>
+
+    <template id="darkstar-rack-template">
+        <div id="darkstar-stomp-rack">
+            <h3>
+                <span>DS Sim Tech // Stomp Control Rack</span>
+                <span style="font-size: 9px; color: #64748b; letter-spacing: 1px; font-weight: normal;">Hardware Bypass Matrix</span>
+            </h3>
+            <div id="stomp-matrix-container"></div>
+        </div>
+    </template>
+
+    <script>
+        (function() {
+            let activeGamepadIdx = null;
+            let learningStompTarget = null;
+            
+            const modulosPocket = [
+                { id: 0, name: "NR", color: "#4a5568" },
+                { id: 1, name: "FX1", color: "#00ffaa" },
+                { id: 2, name: "DRV", color: "#ffd000" },
+                { id: 6, name: "FX2", color: "#3399ff" },
+                { id: 7, name: "DLY", color: "#ff6600" },
+                { id: 8, name: "RVB", color: "#b366ff" }
+            ];
+
+            let mapaBotaoStomp = { "0": null, "1": null, "2": null, "6": null, "7": null, "8": null };
+
+            if (localStorage.getItem('darkstar_pocket_stomp_map')) {
+                try { mapaBotaoStomp = JSON.parse(localStorage.getItem('darkstar_pocket_stomp_map')); } catch(e) {}
+            }
+
+            function inicializarInterfaceDarkStar() {
+                const editorContainer = document.getElementById('editor-container');
+                const signalChainOriginal = document.querySelector('.signal-chain');
+                
+                if (editorContainer && signalChainOriginal && !document.getElementById('darkstar-stomp-rack')) {
+                    const template = document.getElementById('darkstar-rack-template');
+                    const rackClone = template.content.cloneNode(true);
+                    signalChainOriginal.after(rackClone);
+                    construirMatrizStomps();
+                }
+
+                const connectionPanel = document.querySelector('.connection-panel');
+                if (connectionPanel && !document.getElementById('joy_select_group')) {
+                    const selectGroup = document.createElement('div');
+                    selectGroup.id = 'joy_select_group';
+                    selectGroup.className = 'darkstar-sidebar-select-group';
+                    selectGroup.innerHTML = `
+                        <label>Controle USB / Joystick</label>
+                        <select id="darkstar_joy_select" class="darkstar-sidebar-select">
+                            <option value="">Buscando dispositivo...</option>
+                        </select>
+                    `;
+                    connectionPanel.appendChild(selectGroup);
+
+                    document.getElementById('darkstar_joy_select').onchange = (e) => {
+                        if (e.target.value !== "") activeGamepadIdx = parseInt(e.target.value);
+                    };
+                }
+            }
+
+            function construirMatrizStomps() {
+                const container = document.getElementById('stomp-matrix-container');
+                if (!container) return;
+                container.innerHTML = '';
+
+                modulosPocket.forEach(mod => {
+                    const mappedBtn = mapaBotaoStomp[mod.id];
+                    const labelTxt = mappedBtn !== null ? `Btn ${mappedBtn}` : "Livre";
+
+                    const box = document.createElement('div');
+                    box.className = 'darkstar-stompbox';
+                    box.style.borderTopColor = mod.color;
+
+                    box.innerHTML = `
+                        <div class="stomp-name">${mod.name}</div>
+                        <div id="stomp-led-${mod.id}" class="stomp-led"></div>
+                        <div class="stomp-footswitch" onclick="window.forçarTrocaBypassDarkStar(${mod.id}, event)"></div>
+                        <div class="stomp-mapping-label" id="map_label_${mod.id}">${labelTxt}</div>
+                        <button class="darkstar-learn-btn" onclick="window.dispararMapeamentoStomp(${mod.id}, event)">Mapear Pé</button>
+                    `;
+                    container.appendChild(box);
+                });
+            }
+
+            function sincronizarLedsDoRack() {
+                modulosPocket.forEach(mod => {
+                    const modOriginal = document.querySelector(`.chain-module[data-module-id="${mod.id}"]`);
+                    const ledRack = document.getElementById(`stomp-led-${mod.id}`);
+                    
+                    if (modOriginal && ledRack) {
+                        const statusDotOriginal = modOriginal.querySelector('.module-status');
+                        if (statusDotOriginal && statusDotOriginal.classList.contains('on')) {
+                            ledRack.classList.add('active');
+                        } else {
+                            ledRack.classList.remove('active');
+                        }
+                    }
+                });
+            }
+
+            window.dispararMapeamentoStomp = function(moduleId, event) {
+                if (event) event.stopPropagation();
+                learningStompTarget = String(moduleId);
+                
+                document.querySelectorAll('.darkstar-learn-btn').forEach(b => {
+                    b.classList.remove('listening');
+                    b.innerText = 'Mapear Pé';
+                });
+
+                if (event && event.target) {
+                    event.target.classList.add('listening');
+                    event.target.innerText = 'Pise...';
+                }
+            };
+
+            // SOLUÇÃO INFALÍVEL: Emula um clique físico perfeito do mouse estruturado que a engine original captura obrigatoriamente
+            window.forçarTrocaBypassDarkStar = function(moduleId, event) {
+                if (event) event.stopPropagation();
+                
+                const modOriginal = document.querySelector(`.chain-module[data-module-id="${moduleId}"]`);
+                if (modOriginal) {
+                    // Força a UI a focar na aba abrindo os parâmetros
+                    modOriginal.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+                    
+                    // Busca as bolhas de bypass originais do HTML que você me enviou
+                    const statusDotOriginal = modOriginal.querySelector('.module-status');
+                    const toggleSwitchUI = document.getElementById(`module-enable-${moduleId}`);
+                    
+                    // Dispara o clique simulado no evento nativo que roda os 15k de linhas de transmissão MIDI da pedaleira
+                    if (statusDotOriginal) {
+                        statusDotOriginal.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+                    } else if (toggleSwitchUI) {
+                        toggleSwitchUI.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+                    }
+                }
+            };
+
+            function processarMotorDarkStar() {
+                inicializarInterfaceDarkStar();
+                sincronizarLedsDoRack();
+
+                const gps = navigator.getGamepads();
+                
+                const selectSide = document.getElementById('darkstar_joy_select');
+                if (selectSide && gps.length > 0) {
+                    let validGamepads = 0;
+                    for (let i = 0; i < gps.length; i++) { if (gps[i]) validGamepads++; }
+                    
+                    if (selectSide.options.length <= 1 && validGamepads > 0) {
+                        let optionsHtml = '';
+                        for (let i = 0; i < gps.length; i++) {
+                            if (gps[i]) {
+                                optionsHtml += `<option value="${i}">[USB] ${gps[i].id.substring(0, 14)}...</option>`;
+                                if (activeGamepadIdx === null) activeGamepadIdx = i;
+                            }
+                        }
+                        selectSide.innerHTML = optionsHtml;
+                    }
+                }
+
+                if (activeGamepadIdx !== null && gps[activeGamepadIdx]) {
+                    const gp = gps[activeGamepadIdx];
+                    if (window.darkStarButtonsState === undefined) window.darkStarButtonsState = new Array(gp.buttons.length).fill(false);
+                    if (window.darkStarIgnoreNextRelease === undefined) window.darkStarIgnoreNextRelease = {};
+
+                    for (let i = 0; i < gp.buttons.length; i++) {
+                        let pressed = gp.buttons[i].pressed;
+                        
+                        if (pressed && !window.darkStarButtonsState[i]) {
+                            if (learningStompTarget !== null) {
+                                for (let mId in mapaBotaoStomp) {
+                                    if (mapaBotaoStomp[mId] === i && mId !== learningStompTarget) {
+                                        mapaBotaoStomp[mId] = null;
+                                    }
+                                }
+
+                                mapaBotaoStomp[learningStompTarget] = i;
+                                localStorage.setItem('darkstar_pocket_stomp_map', JSON.stringify(mapaBotaoStomp));
+                                
+                                window.darkStarButtonsState[i] = true;
+                                window.darkStarIgnoreNextRelease[i] = false;
+                                learningStompTarget = null;
+                                
+                                construirMatrizStomps();
+                                break;
+                            } else if (!window.darkStarIgnoreNextRelease[i]) {
+                                for (let mId in mapaBotaoStomp) {
+                                    if (mapaBotaoStomp[mId] === i) {
+                                        window.forçarTrocaBypassDarkStar(parseInt(mId), null);
+                                    }
+                                }
+                            }
+                        }
+                        if (!pressed && window.darkStarButtonsState[i]) window.darkStarIgnoreNextRelease[i] = false;
+                        window.darkStarButtonsState[i] = pressed;
+                    }
+                }
+                requestAnimationFrame(processarMotorDarkStar);
+            }
+
+            window.addEventListener('load', () => {
+                requestAnimationFrame(processarMotorDarkStar);
+            });
+        })();
+    </script>
+  <!-- Parte principal do do css-->
     <style>
-        * {
+
+      
+
+
+      * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root { 
+            --bg-main: #060709; --rack-body: #0f1115; --stomp-body: #171920;
+            --accent: #00adb5; --accent-glow: #00fff5; --led-off: #200d0d; --led-on: #ff2222; --danger: #ef4444;
+            --panel-border: #1f232b; --warn: #f59e0b;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
+            background: var(--bg-main);
             color: #e0e0e0;
             min-height: 100vh;
             overflow-x: auto;
@@ -26,25 +430,28 @@
 
         /* Left Sidebar */
         .sidebar {
-            width: 200px;
-            background: linear-gradient(180deg, #3a3a3a, #2a2a2a);
-            border-right: 1px solid #444;
+            width: 220px;
+            background: linear-gradient(180deg, #0d0f14, #07080b);
+            border-right: 2px solid var(--panel-border);
             display: flex;
             flex-direction: column;
         }
 
         .sidebar-header {
-            padding: 15px;
-            background: linear-gradient(90deg, #ff6b35, #f7931e);
-            color: white;
-            font-weight: bold;
+            padding: 18px;
+            background: #0a0b0f;
+            color: var(--accent);
+            font-weight: 900;
             text-align: center;
-            border-bottom: 1px solid #444;
+            border-bottom: 2px solid var(--panel-border);
+            letter-spacing: 2px;
+            font-size: 15px;
         }
 
         .connection-panel {
             padding: 15px;
-            border-bottom: 1px solid #444;
+            border-bottom: 1px solid var(--panel-border);
+            background: #11131a;
         }
 
         .connection-status {
@@ -52,26 +459,30 @@
             align-items: center;
             gap: 8px;
             margin-bottom: 10px;
-            font-size: 12px;
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: bold;
         }
 
         .status-dot {
-            width: 8px;
-            height: 8px;
+            width: 9px;
+            height: 9px;
             border-radius: 50%;
-            background: #ff4444;
+            background: var(--danger);
+            box-shadow: 0 0 6px var(--danger);
         }
 
         .status-dot.connected {
             background: #44ff44;
+            box-shadow: 0 0 8px #44ff44;
         }
 
         .btn {
             width: 100%;
             padding: 8px 12px;
-            border: none;
+            border: 1px solid #252936;
             border-radius: 4px;
-            background: linear-gradient(145deg, #4a4a4a, #3a3a3a);
+            background: #12151c;
             color: #e0e0e0;
             cursor: pointer;
             font-size: 11px;
@@ -82,21 +493,26 @@
         }
 
         .btn:hover:not(:disabled) {
-            background: linear-gradient(145deg, #5a5a5a, #4a4a4a);
-            transform: translateY(-1px);
+            background: #1c202b;
+            border-color: var(--accent);
+            color: #fff;
         }
 
         .btn:disabled {
-            opacity: 0.5;
+            opacity: 0.3;
             cursor: not-allowed;
         }
 
         .btn-primary {
-            background: linear-gradient(145deg, #0066cc, #0052a3);
+            background: var(--accent);
+            color: #000;
+            font-weight: bold;
+            border: none;
         }
 
         .btn-primary:hover:not(:disabled) {
-            background: linear-gradient(145deg, #0077dd, #0066cc);
+            background: var(--accent-glow);
+            box-shadow: 0 0 10px rgba(0,255,245,0.4);
         }
 
         .patch-list {
@@ -109,90 +525,89 @@
         .patch-tabs {
             display: flex;
             flex-shrink: 0;
+            border-bottom: 1px solid var(--panel-border);
         }
 
         .patch-tab-btn {
             flex: 1;
             padding: 10px;
-            background: #333;
+            background: #090a0d;
             border: none;
-            border-bottom: 2px solid #333;
-            color: #999;
+            color: #64748b;
             cursor: pointer;
             font-size: 11px;
             text-transform: uppercase;
+            font-weight: bold;
             transition: all 0.2s ease;
         }
 
-        .patch-tab-btn:hover {
-            background: #444;
-        }
-
         .patch-tab-btn.active {
-            color: #ff6b35;
-            background: #2a2a2a;
-            border-bottom-color: #ff6b35;
+            color: var(--accent-glow);
+            background: #141722;
         }
 
         .patch-search-container {
             padding: 8px;
-            background: #2a2a2a;
+            background: #10121a;
             flex-shrink: 0;
         }
 
         #patchSearchInput {
             width: 100%;
             padding: 6px 10px;
-            background: #1e1e1e;
-            border: 1px solid #444;
+            background: #07080b;
+            border: 1px solid #202431;
             border-radius: 4px;
             color: #e0e0e0;
             font-size: 12px;
+            outline: none;
         }
+        #patchSearchInput:focus { border-color: var(--accent); }
 
         .patch-items-container {
             flex: 1;
             overflow-y: auto;
-            padding: 0 8px 8px 8px;
-            max-height: 45vh; 
+            padding: 6px;
         }
 
         .patch-item {
             padding: 8px 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid transparent;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid #1a1e26;
             border-radius: 4px;
-            margin-bottom: 2px;
+            margin-bottom: 3px;
             cursor: pointer;
             font-size: 12px;
-            transition: all 0.2s ease;
+            transition: all 0.15s ease;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
         .patch-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: #666;
+            background: rgba(0, 173, 181, 0.08);
+            border-color: var(--accent);
         }
 
         .patch-item.selected {
-            background: linear-gradient(145deg, #0066cc, #0052a3);
-            border-color: #0088ff;
+            background: var(--accent);
+            color: #000;
+            font-weight: bold;
+            border-color: var(--accent-glow);
         }
 
-        /* Main Content Area */
+        /* Area Central */
         .main-content {
             flex: 1;
             display: flex;
             flex-direction: column;
-            background: #2a2a2a;
+            background: var(--bg-main);
         }
 
         .top-bar {
             height: 60px;
-            background: linear-gradient(180deg, #3a3a3a, #2a2a2a);
-            border-bottom: 1px solid #444;
+            background: #0b0c10;
+            border-bottom: 1px solid var(--panel-border);
             display: flex;
             align-items: center;
             padding: 0 20px;
@@ -206,196 +621,222 @@
         }
 
         .patch-name {
-            font-size: 16px;
-            font-weight: bold;
-            color: #ff6b35;
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--accent-glow);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .patch-number {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 4px 8px;
+            background: rgba(0, 255, 245, 0.1);
+            padding: 4px 10px;
             border-radius: 4px;
-            font-size: 12px;
-            color: #ccc;
+            font-size: 13px;
+            font-family: monospace;
+            color: var(--accent);
+            border: 1px solid var(--panel-border);
         }
 
-        /* Signal Chain */
+        /* NOVO DESIGN: PAINEL ESTILO RACK DA CADEIA DE SINAL */
         .signal-chain {
-            padding: 15px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            justify-content: center;
-            border-bottom: 1px solid #444; /* Added separator */
+            padding: 25px;
+            background: var(--rack-body);
+            border-bottom: 2px solid var(--panel-border);
+            box-shadow: inset 0 10px 30px rgba(0,0,0,0.6);
         }
 
         .chain-flow {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             flex-wrap: wrap;
         }
 
         .chain-module {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(145deg, #404040, #303030);
-            border: 2px solid #555;
-            border-radius: 8px;
+            width: 92px;
+            height: 195px;
+            background: var(--stomp-body);
+            border: 1px solid #22252e;
+            border-radius: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
+            padding: 12px 6px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.15s ease;
             position: relative;
+            border-top: 5px solid #4a5568;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
         }
 
+        .chain-module[data-module-id="0"] { border-top-color: #4a5568; } /* NR */
+        .chain-module[data-module-id="1"] { border-top-color: #00ffaa; } /* FX1 */
+        .chain-module[data-module-id="2"] { border-top-color: #ffd000; } /* DRV */
+        .chain-module[data-module-id="3"] { border-top-color: #ff4444; } /* AMP */
+        .chain-module[data-module-id="4"] { border-top-color: #7744ff; } /* IR */
+        .chain-module[data-module-id="5"] { border-top-color: #888888; } /* EQ */
+        .chain-module[data-module-id="6"] { border-top-color: #3399ff; } /* FX2 */
+        .chain-module[data-module-id="7"] { border-top-color: #ff6600; } /* DLY */
+        .chain-module[data-module-id="8"] { border-top-color: #b366ff; } /* RVB */
+
         .chain-module:hover {
-            border-color: #777;
+            border-color: var(--accent);
             transform: translateY(-2px);
         }
 
         .chain-module.active {
-            border-color: #ff6b35;
-            box-shadow: 0 0 10px rgba(255, 107, 53, 0.3);
+            border-color: var(--accent-glow);
+            box-shadow: 0 0 15px rgba(0, 255, 245, 0.2);
         }
 
         .chain-module.disabled {
-            opacity: 0.4;
-            border-color: #333;
-        }
-
-        .chain-module.dragging {
-            opacity: 0.5;
-            background: #555;
+            opacity: 0.3;
         }
 
         #fixed-chain-block {
             display: flex;
             align-items: center;
-            gap: 10px;
-            background: rgba(0,0,0,0.15);
-            border: 1px dashed #555;
-            border-radius: 12px;
-            padding: 10px;
-        }
-
-        #chain-terminator {
-            width: 0;
-            height: 0;
-            padding: 0;
-            margin: 0;
-            border: none;
-            font-size: 0;
+            gap: 12px;
+            background: rgba(0,0,0,0.25);
+            border: 1px dashed #313642;
+            border-radius: 14px;
+            padding: 8px;
         }
 
         .module-name {
             font-size: 11px;
-            font-weight: bold;
+            font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            color: #ccc;
+            color: #94a3b8;
         }
 
         .module-type {
-            font-size: 9px;
-            color: #888;
-            margin-top: 2px;
+            font-size: 8px;
+            color: #475569;
+            text-align: center;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .module-status {
-            position: absolute;
-            top: 4px;
-            right: 4px;
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background: #333;
-            cursor: pointer;
-            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            background: var(--led-off);
+            border: 1px solid #000;
+            transition: all 0.1s ease;
+            margin-top: 5px;
         }
-
-        /* for larger clickable area */
-        .module-status::before {
-            content: '';
-            position: absolute;
-            top: -6px;
-            right: -6px;
-            bottom: -6px;
-            left: -6px;
-        }
-
-        .module-status:hover {
-            box-shadow: 0 0 6px rgba(255,255,255,0.3);
-        }
-
         .module-status.on {
-            background: #44ff44;
+            background: var(--led-on);
+            box-shadow: 0 0 10px var(--led-on), inset 0 0 2px #fff;
         }
 
-        .module-status.on:hover {
-            box-shadow: 0 0 8px rgba(68,255,68,0.7);
+        .footswitch-stomp {
+            width: 38px;
+            height: 34px;
+            border: 3px solid #0b0c10;
+            border-radius: 50%;
+            cursor: pointer;
+            background: radial-gradient(circle, #8e929c 30%, #4a4c54 80%);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+            margin-bottom: 4px;
+        }
+        .footswitch-stomp:active { transform: scale(0.92); }
+
+        .stomp-mapping-label {
+            font-size: 8px;
+            font-family: monospace;
+            color: #475569;
+            background: #0b0c10;
+            padding: 1px 4px;
+            border-radius: 3px;
+            margin-bottom: 4px;
+            max-width: 100%;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .btn-stomp-learn {
+            font-size: 8px;
+            font-weight: bold;
+            color: #64748b;
+            background: #0b0c10;
+            border: 1px solid #22252e;
+            padding: 3px 5px;
+            border-radius: 3px;
+            cursor: pointer;
+            text-transform: uppercase;
+            width: 90%;
+        }
+        .btn-stomp-learn.listening {
+            background: var(--danger);
+            color: #fff;
+            animation: stompPulse 1.5s infinite;
         }
 
         .chain-connector {
-            width: 20px;
+            width: 15px;
             height: 2px;
-            background: #666;
+            background: #313642;
             position: relative;
         }
-
         .chain-connector::after {
             content: '▶';
             position: absolute;
-            right: -10px;
+            right: -8px;
             top: -6px;
-            color: #666;
-            font-size: 10px;
+            color: #313642;
+            font-size: 8px;
         }
+        .chain-connector.is-last-connector { visibility: hidden; }
 
-        /* Effects Panel */
+        /* Painel de Controles */
         .effects-panel {
-            background: linear-gradient(180deg, #353535, #2a2a2a);
+            background: #0b0c10;
             padding: 20px;
             flex: 1;
             overflow-y: auto;
         }
 
         .effect-description {
-            font-size: 12px;
-            color: #aaa;
-            margin-bottom: 20px;
-            line-height: 1.5;
-            background: rgba(0,0,0,0.2);
+            font-size: 11px;
+            color: #64748b;
+            margin-bottom: 15px;
+            background: #07080b;
             padding: 10px;
             border-radius: 4px;
-            border-left: 3px solid #ff6b35;
+            border-left: 3px solid var(--accent);
+            text-align: left;
         }
 
-        .effect-controls {
-            display: none;
-        }
-
+        .effect-controls { display: none; }
         .effect-controls.active {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            gap: 15px;
         }
 
         .control-section {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid #444;
+            background: #12151c;
+            border: 1px solid var(--panel-border);
             border-radius: 6px;
             padding: 15px;
+            text-align: left;
         }
 
         .control-section h4 {
-            color: #ff6b35;
-            font-size: 12px;
+            color: var(--accent);
+            font-size: 11px;
             text-transform: uppercase;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             letter-spacing: 0.5px;
         }
 
@@ -403,546 +844,102 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .control-label {
-            min-width: 60px;
+            min-width: 75px;
             font-size: 11px;
-            color: #ccc;
+            color: #94a3b8;
             text-transform: uppercase;
         }
 
         .toggle-switch {
-            width: 40px;
-            height: 20px;
-            background: #333;
-            border-radius: 10px;
+            width: 36px;
+            height: 18px;
+            background: #07080b;
+            border-radius: 9px;
             position: relative;
             cursor: pointer;
-            transition: background-color 0.2s ease;
+            border: 1px solid #22252e;
         }
-
-        .toggle-switch.on {
-            background: #ff6b35;
-        }
-
+        .toggle-switch.on { background: var(--accent); border-color: var(--accent-glow); }
         .toggle-switch::after {
-            content: '';
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            width: 16px;
-            height: 16px;
-            background: white;
-            border-radius: 50%;
-            transition: transform 0.2s ease;
+            content: ''; position: absolute; top: 1px; left: 1px; width: 14px; height: 14px; background: white; border-radius: 50%; transition: transform 0.2s;
         }
-
-        .toggle-switch.on::after {
-            transform: translateX(20px);
-        }
-
-        .toggle-switch.locked {
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
+        .toggle-switch.on::after { transform: translateX(18px); }
 
         .dropdown-select {
-            background: #333;
-            border: 1px solid #555;
+            background: #07080b;
+            border: 1px solid #22252e;
             border-radius: 4px;
             color: #e0e0e0;
-            padding: 5px 10px;
-            font-size: 11px;
+            padding: 5px 8px;
+            font-size: 12px;
             cursor: pointer;
             width: 100%;
-        }
-
-        .slider-container {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            gap: 10px;
-        }
-
-        .slider {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 100%;
-            height: 8px;
-            background: linear-gradient(to right, #ff6b35 var(--progress, 0%), #2a2a2a var(--progress, 0%));
             outline: none;
-            opacity: 0.9;
-            transition: opacity .2s;
-            border-radius: 4px;
-            border: 1px solid #444;
-            cursor: pointer;
         }
+        .dropdown-select:focus { border-color: var(--accent); }
 
-        .slider:hover {
-            opacity: 1;
+        .slider-container { display: flex; align-items: center; width: 100%; gap: 10px; }
+        .slider {
+            -webkit-appearance: none; appearance: none; width: 100%; height: 6px;
+            background: linear-gradient(to right, var(--accent) var(--progress, 0%), #07080b var(--progress, 0%));
+            outline: none; border-radius: 3px; border: 1px solid #22252e; cursor: pointer;
         }
-
         .slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 16px;
-            height: 16px;
-            background: #ff6b35;
-            cursor: pointer;
-            border-radius: 50%;
-        }
-
-        .slider::-moz-range-thumb {
-            width: 16px;
-            height: 16px;
-            background: #ff6b35;
-            cursor: pointer;
-            border-radius: 50%;
+            -webkit-appearance: none; appearance: none; width: 14px; height: 14px; background: #fff; border-radius: 50%; box-shadow: 0 0 4px #000;
         }
 
         .slider-value {
-            font-size: 11px;
-            color: #ccc;
-            min-width: 25px;
-            text-align: right;
-            background: rgba(0,0,0,0.2);
-            padding: 2px 4px;
-            border-radius: 3px;
+            font-size: 11px; color: var(--accent-glow); min-width: 30px; text-align: right; font-family: monospace;
         }
 
-        .slider-value-input {
-            width: 35px; /* Adjust width as needed */
-            font-size: 11px;
-            color: #e0e0e0;
-            background: #1e1e1e;
-            border: 1px solid #ff6b35;
-            border-radius: 3px;
-            text-align: right;
-            padding: 1px 3px;
-        }
+        .patch-volume-container { padding: 10px 20px; background: #07080b; border-bottom: 1px solid var(--panel-border); display: flex; justify-content: center; }
+        .patch-volume-module { width: 100%; max-width: 450px; display: flex; align-items: center; gap: 15px; }
+        .patch-volume-module .module-name { min-width: 90px; font-size: 11px; color: #64748b; }
 
         /* Log Panel */
         .log-panel {
-            position: fixed;
-            bottom: 0;
-            right: 0;
-            width: 500px;
-            height: 350px;
-            background: rgba(0, 0, 0, 0.9);
-            border: 1px solid #444;
-            border-radius: 6px 6px 0 0;
-            display: none;
-            flex-direction: column;
-            z-index: 1000;
+            position: fixed; bottom: 0; right: 0; width: 500px; height: 350px;
+            background: rgba(4, 5, 8, 0.95); border: 1px solid var(--panel-border); border-radius: 6px 6px 0 0;
+            display: none; flex-direction: column; z-index: 1000;
         }
-
-        .log-panel.visible {
-            display: flex;
-        }
-
-        .log-header {
-            padding: 10px;
-            background: #333;
-            border-bottom: 1px solid #444;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .log-header h4 {
-            font-size: 12px;
-            color: #ccc;
-            text-transform: uppercase;
-        }
-
-        .log-toggle {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            padding: 8px 12px;
-            background: #333;
-            border: 1px solid #555;
-            border-radius: 4px;
-            color: #ccc;
-            cursor: pointer;
-            font-size: 11px;
-            z-index: 1001;
-        }
-
-        .log-content {
-            flex: 1;
-            padding: 10px;
-            overflow-y: auto;
-            font-family: 'Courier New', monospace;
-            font-size: 10px;
-            line-height: 1.4;
-        }
-
-        .log-entry {
-            margin-bottom: 2px;
-            display: flex;
-            gap: 10px;
-        }
-
-        .log-time {
-            color: #666;
-            min-width: 60px;
-        }
-
-        .log-type {
-            color: #888;
-            min-width: 50px;
-            font-weight: bold;
-        }
-
+        .log-panel.visible { display: flex; }
+        .log-header { padding: 10px; background: #0b0c10; border-bottom: 1px solid var(--panel-border); display: flex; justify-content: space-between; align-items: center; }
+        .log-header h4 { font-size: 11px; color: #64748b; text-transform: uppercase; }
+        .log-toggle { position: fixed; bottom: 10px; right: 10px; padding: 6px 12px; background: #0b0c10; border: 1px solid var(--panel-border); border-radius: 4px; color: #ccc; cursor: pointer; font-size: 11px; z-index: 1001; }
+        .log-content { flex: 1; padding: 10px; overflow-y: auto; font-family: monospace; font-size: 10px; text-align: left; }
+        .log-entry { margin-bottom: 2px; display: flex; gap: 10px; }
         .log-type.sent { color: #4a9eff; }
         .log-type.received { color: #4aff9e; }
-        .log-type.error { color: #ff4a4a; }
-        .log-type.info { color: #cccccc; }
-
-        .log-message {
-            color: #ccc;
-        }
-
-        .manual-command-panel {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            background: #333;
-            padding: 8px 10px;
-            border-bottom: 1px solid #444;
-        }
-
-        #manualCommandInput {
-            background: #2a2a2a;
-            border: 1px solid #555;
-            color: #e0e0e0;
-            padding: 6px 10px;
-            border-radius: 4px;
-            font-size: 11px;
-            width: 100%;
-            font-family: 'Courier New', Courier, monospace;
-        }
-
-        #sendManualCommandBtn {
-            width: auto;
-            margin-bottom: 0;
-            flex-shrink: 0;
-        }
-
-        .chain-connector.is-last-connector {
-            visibility: hidden;
-        }
-
-        .global-volume-control {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            width: 250px;
-        }
-
-        .global-volume-control .control-label {
-            font-size: 11px;
-            color: #ccc;
-            text-transform: uppercase;
-            min-width: fit-content;
-        }
-
-        /* New container for the patch volume slider */
-        .patch-volume-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 15px 20px;
-        }
-
-        .patch-volume-module {
-            width: 50%;
-            max-width: 500px;
-            height: 50px;
-            background: linear-gradient(145deg, #404040, #303030);
-            border: 2px solid #555;
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-            position: relative;
-            padding: 10px;
-            gap: 8px;
-        }
-
-        .patch-volume-module .module-name {
-            font-size: 14px;
-            font-weight: bold;
-            color: #ccc;
-        }
-
-        .patch-volume-module .slider-container {
-            width: 100%;
-        }
-        /* Add these new styles to your existing <style> block */
-        .settings-btn {
-            background: none;
-            border: none;
-            color: #ccc;
-            font-size: 20px;
-            cursor: pointer;
-            padding: 5px;
-            margin-left: 15px;
-        }
-        .settings-btn:hover {
-            color: #ff6b35;
-        }
+        .manual-command-panel { display: flex; gap: 10px; background: #0b0c10; padding: 8px; border-top: 1px solid var(--panel-border); }
+        #manualCommandInput { background: #07080b; border: 1px solid #22252e; color: #00fff5; padding: 6px; font-size: 11px; width: 100%; font-family: monospace; outline: none; }
 
         .advanced-settings-panel {
-            position: fixed;
-            top: 65px; /* Position below the top bar */
-            right: 20px;
-            width: 300px;
-            background: linear-gradient(145deg, #3a3a3a, #2a2a2a);
-            border: 1px solid #444;
-            border-radius: 6px;
-            z-index: 1002;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            display: none; /* Hidden by default */
+            position: fixed; top: 65px; right: 20px; width: 300px; background: #11131a; border: 1px solid var(--panel-border); border-radius: 6px; z-index: 1002; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); display: none;
         }
+        .advanced-settings-panel.visible { display: block; }
+        .advanced-settings-panel h4 { color: var(--accent); font-size: 11px; text-transform: uppercase; margin-bottom: 15px; }
 
-        .advanced-settings-panel.visible {
-            display: block; /* Shown when this class is added */
-        }
+        .tap-tempo-section { margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--panel-border); text-align: left; }
+        .tap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: center; }
+        .tap-display { background: #07080b; border: 1px solid #22252e; padding: 8px; border-radius: 4px; text-align: center; }
+        .bpm-input { width: 100%; background: transparent; border: none; color: var(--accent-glow); font-size: 20px; font-weight: bold; font-family: monospace; text-align: center; outline: none; }
+        .tap-button { grid-column: 1 / -1; padding: 10px; font-weight: bold; color: #fff; background: #222530; border: 1px solid #313642; border-radius: 4px; cursor: pointer; text-transform: uppercase; font-size: 12px; }
+        .tap-button:active { background: var(--accent); color: #000; }
+        .note-divisions { grid-column: 1 / -1; display: flex; gap: 5px; margin-top: 5px; }
+        .note-btn { flex: 1; padding: 5px; font-size: 10px; background: #12151c; border: 1px solid #22252e; color: #aaa; cursor: pointer; border-radius: 3px; }
+        .note-btn.active { background: var(--accent); color: #000; font-weight: bold; border-color: var(--accent-glow); }
 
-        .advanced-settings-panel h4 {
-            color: #ff6b35;
-            font-size: 12px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            letter-spacing: 0.5px;
-        }
+        .global-volume-control { display: flex; align-items: center; gap: 10px; width: 220px; }
+        .settings-btn { background: none; border: none; color: #64748b; font-size: 18px; cursor: pointer; margin-left: 10px; }
+        .settings-btn:hover { color: var(--accent); }
 
-        .module-icon {
-            margin-top: 4px;
-            margin-bottom: 4px; /* Adds a little space between the icon and the text */
-        }
-
-        .patch-items-container.locked {
-            opacity: 0.5;
-            pointer-events: none;
-            cursor: wait;
-        }
-
-        .debug-buttons-panel {
-            padding: 8px 10px 0 10px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-            background: #333;
-            border-bottom: 1px solid #444;
-        }
-
-        .debug-buttons-panel .btn {
-            width: auto;
-            flex-grow: 1;
-            margin-bottom: 0;
-            padding: 4px 6px; 
-        }
-
-      /* Main container for the entire tap tempo section */
-        .tap-tempo-section {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #555;
-        }
-
-        /* Grid layout for the main components */
-        .tap-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            align-items: center;
-        }
-
-        /* Styling for the BPM and Delay Time display boxes */
-        .tap-display {
-            background-color: #222;
-            border-radius: 6px;
-            padding: 10px;
-            border: 1px solid #444;
-        }
-
-        /* BPM and Delay Time text input styling */
-        .bpm-input {
-            width: 100%;
-            background-color: transparent;
-            border: none;
-            /* Color updated to match the slider's active color */
-            color: #ff6b35;
-            font-size: 1.5em;
-            font-weight: 700;
-            font-family: "Courier New", Courier, monospace;
-            text-align: center;
-            padding: 0;
-        }
-
-        /* Removes the number input arrows in Chrome/Safari */
-        .bpm-input::-webkit-outer-spin-button,
-        .bpm-input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        /* Removes the number input arrows in Firefox */
-        .bpm-input[type=number] {
-            -moz-appearance: textfield;
-        }
-
-        /* Subtle background highlight when the BPM input is focused */
-        .bpm-input:focus {
-            outline: none;
-            background-color: rgba(247, 147, 30, 0.1);
-        }
-
-        /* "BPM" and "Delay Time" labels under the displays */
-        .display-label {
-            font-size: 0.7em;
-            color: #999;
-            text-transform: uppercase;
-            display: block;
-            margin-top: 2px;
-        }
-
-        /* Main "TAP" button styling */
-        .tap-button {
-            grid-column: 1 / -1;
-            padding: 1rem;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #fff;
-            /* Updated background to a neutral gray */
-            background-color: #555;
-            border: 1px solid #777;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.1s ease-out, box-shadow 0.1s ease-out, color 0.1s ease-out;
-        }
-
-        /* "TAP" button active (pressed) state */
-        .tap-button:active {
-            /* Updated to the primary slider color */
-            background-color: #ff6b35;
-            transform: scale(0.98);
-        }
-
-        /* Visual indicator for the BPM beat */
-       .tap-button.beat-flash {
-            /* The text will flash to the active orange color */
-            color: #ff6b35;
-        }
-
-        /* Container for the note division buttons (1/4, 1/8, etc.) */
-        .note-divisions {
-            grid-column: 1 / -1;
-            display: flex;
-            justify-content: space-between;
-            gap: 8px;
-        }
-
-        /* Individual note division button styling */
-        .note-btn {
-            flex-grow: 1;
-            padding: 0.6rem 0;
-            font-size: 0.9rem;
-            color: #ccc;
-            background-color: #4f4f4f;
-            border: 1px solid #555;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        /* Active note division button styling */
-        .note-btn.active {
-            /* Updated to the primary slider color */
-            background-color: #ff6b35;
-            color: #fff;
-            /* A slightly brighter orange for the border */
-            border-color: #ff6b35;
-            font-weight: bold;
-        }
-
-        .bpm-input.out-of-range {
-            /* This animation will run when the class is active */
-            animation: flash-red 0.8s infinite;
-        }
-
-        /* This defines the flashing animation itself */
-        @keyframes flash-red {
-            0% { background-color: transparent; }
-            50% { background-color: #9d2c2c; } /* A dark red flash */
-            100% { background-color: transparent; }
-        }
-
-        #delay-time-ms-7 {
-            font-size: 1.2em;
-            color: #ccc;
-            transition: color 0.2s ease; /* Optional: adds a smooth fade to red */
-        }
-
-        /* USB MIDI Device Selection Styles */
-        .usb-device-pair {
-            padding: 12px;
-            margin-bottom: 8px;
-            background: #2a2a2a;
-            border: 2px solid #444;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .usb-device-pair:hover {
-            border-color: #666;
-            background: #333;
-        }
-
-        .usb-device-pair.selected {
-            border-color: #ff6b35;
-            background: rgba(255, 107, 53, 0.1);
-        }
-
-        .usb-device-pair-title {
-            font-weight: bold;
-            color: #ff6b35;
-            margin-bottom: 6px;
-            font-size: 12px;
-        }
-
-        .usb-device-io {
-            font-size: 11px;
-            color: #aaa;
-            margin: 2px 0;
-            padding-left: 12px;
-        }
-
-        .usb-device-io-label {
-            color: #888;
-            font-weight: bold;
-            min-width: 50px;
-            display: inline-block;
-        }
-
-
-
-        /* Additional visual cue for hover-to-focus items */
-    .control-row.hover-focus {
-        background-color: rgba(255, 255, 255, 0.05); /* very subtle highlight */
-        border-radius: 4px;
-        transition: background-color 0.1s ease;
-    }
-</style>
+        .chain-module.dragging { opacity: 0.5; border: 1px dashed var(--accent); }
+        @keyframes stompPulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+    </style>
 </head>
 <body>
     <div class="main-container">
@@ -15070,6 +15067,128 @@
             window.bleEditor = new SonicakeBLEEditor();
             window.bleEditor.startEditor(); // Automatically start the editor on page load
         });
+
+        
     </script>
+
+    <script>
+        (function() {
+            let activeGamepadIdx = null;
+            let lastButtonsState = [];
+            let ignoreNextRelease = {};
+            let learningStompTarget = null;
+            let mapaBotaoStomp = { "0": null, "1": null, "2": null, "3": null, "4": null, "5": null, "6": null, "7": null, "8": null };
+
+            // Recupera mapeamento salvo
+            if (localStorage.getItem('darkstar_pocket_stomp_map')) {
+                try { mapaBotaoStomp = JSON.parse(localStorage.getItem('darkstar_pocket_stomp_map')); } catch(e) {}
+            }
+
+            // Atualiza os pequenos textos nos blocos indicando qual botão está mapeado
+            function atualizarLabelsMapeamentoInterface() {
+                for (let mId in mapaBotaoStomp) {
+                    const label = document.getElementById(`map_stomp_${mId}`);
+                    if (label) {
+                        label.innerText = mapaBotaoStomp[mId] !== null ? `Btn ${mapaBotaoStomp[mId]}` : "Livre";
+                    }
+                }
+            }
+
+            // Injeta as funções de mapeamento globalmente na janela para os botões "Mapear" funcionarem
+            window.dispararMapeamentoFootswitch = function(moduleId, event) {
+                if (event) event.stopPropagation();
+                learningStompTarget = String(moduleId);
+                document.querySelectorAll('.btn-stomp-learn').forEach(b => b.classList.remove('listening'));
+                if (event && event.target) event.target.classList.add('listening');
+                console.log(`[DarkStar] Aguardando botão USB para o módulo ${moduleId}...`);
+            };
+
+            // Aciona o efeito simulando o comportamento exato que a engine original do Pocket Edit escuta
+            window.forçarTrocaFootswitchPé = function(moduleId, event) {
+                if (event) event.stopPropagation();
+                
+                // 1. Busca o módulo correspondente na lista visual
+                const modEl = document.querySelector(`.chain-module[data-module-id="${moduleId}"]`);
+                if (modEl) {
+                    // Força o clique visual para focar o painel de parâmetros do módulo
+                    modEl.click();
+                    
+                    // 2. Procura pela bolinha de status (LED) ou chave de ativação nativa
+                    const statusDot = modEl.querySelector('.module-status');
+                    const enableToggle = document.getElementById(`module-enable-${moduleId}`);
+                    
+                    if (statusDot) {
+                        statusDot.click(); // Dispara o toggle original do Pocket Edit
+                    } else if (enableToggle) {
+                        enableToggle.click(); // Fallback caso o seletor mude
+                    }
+                }
+            };
+
+            // Loop de Varredura do Joystick (Debounce Engine Isolada)
+            function loopJoystickDarkStar() {
+                const gps = navigator.getGamepads();
+                let achou = false;
+                
+                const select = document.getElementById('joy_select');
+                if (select && select.options.length <= 1 && gps.length > 0) {
+                    let optionsHtml = '';
+                    for (let i = 0; i < gps.length; i++) {
+                        if (gps[i]) {
+                            optionsHtml += `<option value="${i}">[USB] ${gps[i].id}</option>`;
+                            if (activeGamepadIdx === null) activeGamepadIdx = i;
+                            achou = true;
+                        }
+                    }
+                    if(achou) select.innerHTML = optionsHtml;
+                }
+
+                if (activeGamepadIdx !== null && gps[activeGamepadIdx]) {
+                    const gp = gps[activeGamepadIdx];
+                    if (lastButtonsState.length === 0) lastButtonsState = new Array(gp.buttons.length).fill(false);
+
+                    for (let i = 0; i < gp.buttons.length; i++) {
+                        let pressed = gp.buttons[i].pressed;
+                        
+                        if (pressed && !lastButtonsState[i]) { // Roda estritamente uma única vez por clique
+                            if (learningStompTarget !== null) {
+                                mapaBotaoStomp[learningStompTarget] = i;
+                                ignoreNextRelease[i] = true;
+                                localStorage.setItem('darkstar_pocket_stomp_map', JSON.stringify(mapaBotaoStomp));
+                                atualizarLabelsMapeamentoInterface();
+                                learningStompTarget = null;
+                                document.querySelectorAll('.btn-stomp-learn').forEach(b => b.classList.remove('listening'));
+                            } else if (!ignoreNextRelease[i]) {
+                                for (let mId in mapaBotaoStomp) {
+                                    if (mapaBotaoStomp[mId] === i) {
+                                        window.forçarTrocaFootswitchPé(parseInt(mId), null);
+                                    }
+                                }
+                            }
+                        }
+                        if (!pressed && lastButtonsState[i]) ignoreNextRelease[i] = false;
+                        lastButtonsState[i] = pressed;
+                    }
+                }
+                requestAnimationFrame(loopJoystickDarkStar);
+            }
+
+            // Inicialização segura após o carregamento da janela
+            window.addEventListener('load', () => {
+                atualizarLabelsMapeamentoInterface();
+                requestAnimationFrame(loopJoystickDarkStar);
+                
+                // Vincula mudança manual de joystick no seletor do topo
+                const select = document.getElementById('joy_select');
+                if (select) {
+                    select.onchange = (e) => { activeGamepadIdx = parseInt(e.target.value); };
+                }
+            });
+        })();
+
+
+    </script>
+
+
 </body>
 </html>
