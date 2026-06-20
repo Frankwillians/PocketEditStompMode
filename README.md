@@ -6,7 +6,7 @@ This single, portable HTML file unlocks the full potential of your device, makin
 It was created as a fun side project using 99% AI programming logic and 100% hard labour reverse engineering, learning about BLE/HCI snooping and understanding how this device works by looking at logs.
 
 
-![screenshot](img/gui.jpg)
+![screenshot](img/gui.png)
 
 ---
 
