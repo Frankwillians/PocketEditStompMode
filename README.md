@@ -1,65 +1,53 @@
-# **PocketEdit** 
+# Pocket Edit - Stomp Mode & Gamepad Integration 🎛️⚡
 
-**PocketEdit** is a powerful, browser-based web application designed to give you deep, real-time control over your **Sonicake Pocket Master** multi-effects pedal. It provides a user-friendly graphical interface to manage presets, edit effects, and visualize your entire signal chain—all without needing to install any software, since it's written in HTML and JavaScript.
+[![GitHub Pages](https://img.shields.io/badge/Hospedado_no-GitHub_Pages-00fff5?style=for-the-badge&logo=github)](https://frankwillians.github.io/PocketEditStompMode/)
+[![License: MIT](https://img.shields.io/badge/Licença-MIT-94a3b8?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![Tech: Systems for Internet](https://img.shields.io/badge/Focado_em-Sistemas_para_Internet-00adb5?style=for-the-badge)](https://github.com)
 
-This single, portable HTML file unlocks the full potential of your device, making tone creation and management faster and more intuitive than ever before.
-It was created as a fun side project using 99% AI programming logic and 100% hard labour reverse engineering, learning about BLE/HCI snooping and understanding how this device works by looking at logs.
+Esta é uma modificação estética, de interface e de engenharia de hardware construída sobre o software open-source original *Pocket Edit*. O objetivo principal deste projeto é transformar o editor web da pedaleira Sonicake Pocket Master num ecossistema robusto para performance ao vivo, facilitando o controlo em palcos e ensaios através da integração de comandos físicos.
 
-
-![screenshot](img/gui.png)
+Esta versão adiciona suporte completo a hardware externo (joysticks, placas controladoras makers, footswitches USB/Bluetooth) e reformula a experiência visual do músico através de uma integração limpa e não invasiva.
 
 ---
 
-## **Online accessing the App**
+## 📸 Interface em Funcionamento
 
-You can now directly access PocketEdit online!
-The latest version is always available directly here:
-**https://frankwillians.github.io/PocketEditStompMode/**
+![Pocket Edit Stomp Mode em Ação](/img/gui.png)
+*Visualização do painel integrado com o novo Visor LED de Preset e a matriz física do Stomp Control Rack.*
 
-## **Features**
+---
 
-* **Dual Connectivity:** Now supports **USB WebMIDI** (default) with a fallback to **Bluetooth**. USB MIDI support allows the editor to work in **Firefox** and other non-Chromium browsers. (thanks to @hnikolov)
-* **Dual Way Communication:** Now displaying changes made on the device (thanks to @hnikolov)
-* **Preset Export in JSON:** Easy way to import/export JSON based presets instead of the proprietary prst files. (thanks to @hnikolov)
-* **Instant Preset Saving:** Brute-forcing the CRC is gone! Saving now uses a precise **CRC-8 calculation** for instant, reliable preset writing. (thanks to @hnikolov)
-* **Real-Time Editing:** Tweak any parameter and hear the changes instantly on your device.
-* **Full Preset Management:** Easily browse, search, and load all 50 User and 50 Factory presets.  
-* **Visual Signal Chain:** See your entire effects chain at a glance. Simply click a module to edit its parameters.  
-* **Automatic Sync:** Upon connecting, the app automatically syncs all preset names, effect types, user-loaded IRs, and global settings from your device, ensuring the editor always matches your hardware.  
-* **Unsaved Preset Warning:** The app tracks your changes and warns you if you try to switch presets without saving your modifications.  
-* **Advanced Debugging Tools:** A hidden log panel contains manual sync buttons and a communication log for troubleshooting.
-* **Tap Tempo:** Use a tap tempo button to calculate milliseconds for delay settings, with 1/8, 1/8 Dotted, 1/4 and 1/2 setting.
+## 🚀 Principais Novidades e Recursos
 
-## **Requirements**
+### 1. 🎚️ Stomp Control Rack (Modo Stomp)
+Uma matriz horizontal cirúrgica injetada diretamente abaixo da cadeia de sinal da pedaleira. Diferente da interface padrão baseada em sliders, o Modo Stomp replica o comportamento físico de uma pedaleira de palco tradicional:
+* **Foco em Efeitos e Dinâmica:** Exibição exclusiva dos módulos de modulação e ambiência (**NR, FX1, DRV, FX2, DLY, RVB**). Os blocos de AMP, IR ou EQ foram ocultados para garantir um controlo de bypass limpo e focado no que realmente se altera durante a execução.
+* **LEDs Virtuais de Alta Visibilidade:** LEDs vermelhos com efeito de brilho (*glow*) em tempo real, que sincronizam instantaneamente com o estado físico e visual da pedaleira.
 
-Before you begin, please ensure you have the following:
+### 2. 🎛️ Integração de Controles USB & Bluetooth (Gamepad Engine)
+Equipado com um motor JavaScript assíncrono conectado à **Gamepad API nativa do navegador**, o estúdio aceita qualquer dispositivo reconhecido pelo sistema operacional como Joystick ou Controlador de Jogo:
+* **Comunicação Direta por Eventos Brutos:** Acionamento reprogramado para disparar eventos nativos (`MouseEvent`) em cascata. Isso elimina falhas comuns de clique (*debounce locks*), garantindo a ativação imediata **na primeira pisada**.
+* **Gravação Inteligente Anti-Conflito:** O sistema faz uma varredura automática no mapa ao registar um novo pedal. Se o mesmo botão físico for atribuído a outro efeito, o mapeamento antigo é limpo automaticamente, impedindo que uma pisada acione dois blocos por engano.
+* **Suporte Total Sem Fio:** Compatível com controladoras via cabo USB ou conexões sem fio Bluetooth (controles de Xbox, PlayStation, placas Zero Delay, Arduino, etc.). O seletor foi posicionado na barra lateral esquerda junto aos botões de conexão.
 
-* **Hardware:** A **Sonicake Pocket Master** multi-effects pedal.
-* **USB Connection (Recommended):** Works in **Google Chrome**, **Microsoft Edge**, and **Firefox**.
-* **Bluetooth Connection:** Requires a **Chromium-based browser** (Chrome, Edge, Brave) that supports the **Web Bluetooth API**.
-    * *Note: If your PC lacks Bluetooth, a [USB Bluetooth 5.0 Adapter](https://www.amazon.de/dp/B0CZD94YFR) is recommended.*
+### 3. 📟 Visor LED Estilo Rack de Estúdio (Novo Tema Dark)
+A barra superior do sistema foi totalmente reformulada com um tema *Dark Premium* focado em acessibilidade no escuro:
+* **Brilho Néon Ciano:** A numeração do preset agora utiliza uma tipografia monospace de alta definição com efeitos de sombreamento e emanação de luz (*text-shadow*).
+* **Fundo Fosco Profundo:** Caixa de informações estruturada com efeitos de profundidade interna (*inset box-shadow*) imitando os displays analógicos de racks profissionais.
 
-## **Getting Started**
+---
 
-Getting started with PocketEdit is simple.
+## 📲 Como Usar no Smartphone (Mobile Ready)
 
-1.  **Open the App:** Use the [Online Link](https://frankwillians.github.io/PocketEditStompMode/)) or open a local copy of the `index.html`.
-2.  **Connect your Device:** Click the **"Connect"** button in the top-left sidebar.
-4.  **Choose Mode:** The app will default to **USB MIDI**. If you prefer wireless or USB is unavailable, select **"Use Bluetooth"** (Chromium based browser required!).
-4.  **Pairing:** If using Bluetooth, select **"Sonic Master BLE"** from the browser popup and click **"Pair"**.
-5.  **Automatic Sync:** A loading overlay will appear while the app syncs your device data. Once it disappears, you're ready to edit!
-   
-## **How to Use the Editor**
+Por estar hospedado de forma segura no **GitHub Pages (protocolo HTTPS obrigatório)**, o estúdio liberta o acesso à **Web Bluetooth API** do navegador do teu telemóvel:
 
-* **Loading a Preset:** Use the sidebar on the left to browse the **User** and **Factory** preset banks. Simply click on any preset in the list to load it onto your device.  
-* **Editing an Effect:** The signal chain is displayed visually across the top. Click on any module (e.g., `DRV`, `AMP`, `DLY`) to bring up its detailed controls in the main panel below.  
-* **Arrange the Signal Chain:** The movable modules (NR, FX1, FX2, DLY, RVB) can be reordered via drag and drop. Simply click and drag a module to a new position in the chain.  
-* **Changing an Effect Type:** Within a module's control panel, use the "Type" or "Model" dropdown menu to switch between different effects (e.g., from a "Scream" overdrive to a "Red Fuzz").  
-* **Saving Your Changes:** When you modify a preset, an asterisk (`*`) will appear next to its name, indicating it's unsaved. To save your changes, click the **⚙️ gear icon** in the top-right to open the Advanced Settings panel, then click the **"Save Current Preset"** button.
+* **No Android:** Abre o link do teu projeto diretamente no **Google Chrome**. Liga o Bluetooth do aparelho, clica em **"Conectar BLE"** na barra lateral, seleciona a pedaleira na lista pop-up e controla todo o setup via touch ou controle Bluetooth emparelhado.
+* **No iOS (iPhone):** Devido às restrições nativas do Safari ao Web Bluetooth, basta baixar um navegador focado em BLE na App Store (como o **Bluefy** ou **WebBLE**) e aceder ao link do teu GitHub Pages por dentro dele.
 
-* ## **Credits**
+---
 
-* **USB WebMIDI & Firefox Support:** Huge thanks to [hnikolov](https://github.com/hnikolov) for implementing USB MIDI and the windowing logic.
-* **CRC Logic:** Optimized from brute-force to CRC-8 calculation by [hnikolov](https://github.com/hnikolov).
+## 🛠️ Estrutura de Instalação e Arquivos
 
-Enjoy crafting your perfect tone\!
+O projeto foi planeado para manter o núcleo (*core*) do Pocket Edit intocado, injetando os estilos e o motor assíncrono inteiramente num bloco autônomo no final do arquivo principal:
+
+```html
