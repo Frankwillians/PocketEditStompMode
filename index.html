@@ -1308,9 +1308,401 @@
             #stomp-matrix-container {
                 grid-template-columns: repeat(6, minmax(100px, 1fr)) !important;
             }
+        
+          }
+
+          /* ========================================================== */
+        /* DARKSTAR INTERFACE ENGINE V26: CORREÇÃO COMPLETA MOBILE     */
+        /* ========================================================== */
+        @media (max-width: 767px) {
+            /* 1. RESET DE VIEWPORT E COMPACTAÇÃO DE TELA CELULAR */
+            html, body, #app, .app-container {
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow-x: hidden !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-sizing: border-box !important;
+                background-color: #06070a !important;
+            }
+
+            .main-content {
+                width: 100% !important;
+                display: flex !important;
+                flex-direction: column !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            /* Gaveta flutuante de presets */
+            .sidebar {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 240px !important;
+                height: 100vh !important;
+                z-index: 99999999 !important;
+                background: #0f1115 !important;
+                border-right: 2px solid #252b36 !important;
+                transform: translateX(-100%) !important;
+                transition: transform 0.2s ease-in-out !important;
+            }
+            .sidebar.darkstar-open-menu { transform: translateX(0) !important; }
+
+            /* 2. NAVBAR SUPERIOR ULTRA-SLIM (SÓ O NÚMERO DO PRESET) */
+            .top-bar {
+                width: 100% !important;
+                max-width: 100% !important;
+                height: 40px !important;
+                min-height: 40px !important;
+                background: #090a0f !important;
+                border-bottom: 1px solid #1a1f29 !important;
+                box-sizing: border-box !important;
+                position: relative !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                padding: 0 75px 0 8px !important;
+            }
+            .top-bar::before { display: none !important; }
+            .patch-info { display: flex !important; align-items: center !important; min-width: 0 !important; padding: 0 !important; background: transparent !important; border: none !important; box-shadow: none !important; gap: 4px !important; }
+            .patch-number { font-size: 15px !important; font-weight: 900 !important; color: #00fff5 !important; margin: 0 !important; }
+            .patch-name { display: none !important; }
+
+            /* Micro Menu Hambúrguer ☰ */
+            .top-bar::after {
+                content: '☰' !important;
+                position: absolute !important;
+                right: 12px !important;
+                top: 50% !important;
+                transform: translateY(-50%) !important;
+                font-size: 18px !important;
+                color: #00fff5 !important;
+                cursor: pointer !important;
+                z-index: 100005 !important;
+            }
+
+            /* 3. CADEIA DE SINAL COM SWIPE TOUCH LATERAL */
+            .signal-chain {
+                width: 100% !important;
+                background: #12151c !important;
+                
+                border-bottom: 1px solid #1a1f29 !important;
+                box-sizing: border-box !important;
+                display: flex !important;
+                flex-direction: row !important;
+                flex-wrap: nowrap !important;
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+                justify-content: flex-start !important;
+                gap: 10px !important;
+                -webkit-overflow-scrolling: touch !important;
+            }
+            .signal-chain > div, .effect-node { transform: none !important; margin: 0 !important; flex-shrink: 0 !important; }
+
+            /* ⚡ REMOVE O BOTÃO BRUTO ORIGINAL DE DENTRO DA CADEIA DE SINAL NO MOBILE */
+            .signal-chain button, 
+            .signal-chain .btn,
+            .signal-chain [onclick*="toggleEffectsPanel"] { 
+                display: none !important; 
+            }
+            .signal-chain::after, .signal-chain::before { display: none !important; }
+
+            /* Sliders internos originais da gaveta de parâmetros */
+            .effects-panel, #effectsPanel { padding: 10px 8px !important; }
+            .effect-controls.active { display: flex !important; flex-direction: column !important; gap: 8px !important; }
+            .control-section { width: 100% !important; box-sizing: border-box !important; }
+            .control-section input[type="range"] { width: 100% !important; }
+
+            /* ========================================================== */
+            /* 🔴 SEÇÃO VERMELHA: HARDWARE KNOBS SIMÉTRICOS LADO A LADO    */
+            /* ========================================================== */
+            /* ❌ SUMIÇO TOTAL DA BARRA HORIZONTAL CINZA DO SLIDER ORIGINAL */
+            .volume-controls input[type="range"],
+            .volume-controls input[type="range"]::-webkit-slider-runnable-track,
+            .volume-controls input[type="range"]::-moz-range-track {
+                background: transparent !important;
+                border: none !important;
+                height: 0 !important;
+               
+                display: none !important;
+            }
+
+            /* Força a div pai real a distribuir as duas caixas simetricamente */
+            .volume-controls {
+                width: 25% !important;
+                max-width: 25% !important;
+                margin: 0 !important;
+                padding: 4px 16px !important;
+                box-sizing: border-box !important;
+                background: transparent !important;
+                display: flex !important;
+                flex-direction: row !important; /* Mantém lado a lado horizontal */
+                justify-content: space-around !important;
+                align-items: center !important;
+                height: auto !important;
+            }
+
+
+
+            /* Formatação enxuta das labels de texto abaixo dos Knobs */
+            .volume-controls label {
+                font-size: 8px !important;
+                font-weight: 900 !important;
+                color: #8892b0 !important;
+                text-transform: uppercase !important;
+                margin: 2px 0 0 0 !important;
+                letter-spacing: 0.5px !important;
+                display: block !important;
+                text-align: center !important;
+                width: 100% !important;
+            }
+
+            /* 🎛️ REDUÇÃO CIRÚRGICA DOS KNOBS ANALÓGICOS (CÍRCULOS NÉON) */
+            .darkstar-knob-hardware {
+                width: 30px !important;  /* Tamanho discreto e simétrico */
+                height: 30px !important;
+                background: #090a0f !important;
+                border: 2px solid #00fff5 !important;
+                border-radius: 50% !important;
+                position: relative !important;
+                cursor: pointer !important;
+                touch-action: none !important; /* Bloqueia o arrasto lateral do navegador */
+                box-shadow: 0 0 8px rgba(0,255,245,0.2), inset 0 2px 4px rgba(0,0,0,0.8) !important;
+                margin: 0 auto !important;
+                transform: rotate(-135deg);
+                display: block !important;
+            }
+
+            /* ⚪ O PONTO INDICADOR BRANCO DE GIRO ANALÓGICO */
+            .darkstar-knob-hardware::after {
+                content: '' !important;
+                position: absolute !important;
+                top: 2px !important; /* Encaixe preciso no raio de 30px */
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                width: 3.5px !important;
+                height: 3.5px !important;
+                background-color: #ffffff !important;
+                border-radius: 50% !important;
+                box-shadow: 0 0 2px #ffffff !important;
+            }
+
+            .slider-value { display: none !important; }
+
+            /* ========================================================== */
+            /* 🟠 SEÇÃO LARANJA: COMPACTAÇÃO DA PEDALEIRA DE BASE        */
+            /* ========================================================== */
+            #darkstar-stomp-rack {
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+                background: #090a0e !important;
+                border-top: 1px solid #1a1f29 !important;
+                margin-top: auto !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 5px !important;
+            }
+
+            /* Matriz simétrica dos stomps */
+            #stomp-matrix-container {
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 6px !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-sizing: border-box !important;
+            }
+
+            /* Trava a div de botões de preset exatamente na mesma largura */
+            .preset-buttons,
+            #preset-navigation-container,
+            .preset-navigation-container {
+              width: 20px;
+            }
+            #preset-navigation-box {
+              width: 10% !important;
+
+            }
+            /* Padronização de altura fina para os botões do rodapé caberem na tela */
+            .stomp-button, 
+            #stomp-matrix-container button, 
+            #darkstar-stomp-rack button,
+            .preset-buttons button {
+                padding: 5px 4px !important; /* Altura reduzida para dar o encaixe físico vertical */
+                font-size: 9px !important;
+                font-weight: 800 !important;
+                text-transform: uppercase !important;
+                border-radius: 4px !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+                margin: 0 !important;
+                min-height: 0 !important;
+                
+                background: linear-gradient(180deg, #222530 0%, #14161d 100%) !important;
+                border: 1px solid #343a4a !important;
+                color: #a0aec0 !important;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.4) !important;
+                white-space: nowrap !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+            }
+
+            #stomp-matrix-container button:active,
+            .preset-buttons button:active,
+            #preset-navigation-container button:active {
+                background: #00fff5 !important;
+                color: #000 !important;
+                border-color: #00fff5 !important;
+            }
+
+            /* Esconde a base se o configurador expandir */
+            .main-content:has(.darkstar-show-panel) #darkstar-stomp-rack {
+                display: none !important;
+            }
+        }
+        /* ========================================================== */
+        /* DARKSTAR NATIVE: VERTICAL LIST PRESETS & IPHONE CALIBRATION*/
+        /* ========================================================== */
+        @media (max-width: 767px) {
+            /* Garante que o rack inferior aplique recuo simétrico e centralizado */
+            #darkstar-stomp-rack {
+                padding: 8px 16px 12px 16px !important; /* Margens perfeitamente iguais nas laterais */
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 8px !important;
+            }
+
+            /* 🟠 SEÇÃO LARANJA: EMPILHAMENTO DOS BOTÕES EM LISTA CENTRALIZADA */
+            .preset-navigation-container,
+            #preset-navigation-container,
+            .preset-buttons {
+                display: flex !important;
+                flex-direction: column !important; /* Transforma os botões em uma lista (um acima do outro) */
+                align-items: center !important;   /* Centraliza horizontalmente na tela */
+                justify-content: center !important;
+                gap: 6px !important;              /* Espaçamento vertical entre os dois botões */
+                
+                /* Define uma largura compacta e controlada para a lista */
+                width: 60% !important; 
+                max-width: 200px !important;
+                
+                /* Força a centralização absoluta do bloco na base do rack */
+                margin: 6px auto 0 auto !important; 
+                padding: 0 !important;
+                box-sizing: border-box !important;
+            }
+
+            /* ⚡ AJUSTE DE DESIGN DOS BOTÕES DA LISTA (- e +) */
+            .preset-navigation-container button,
+            .preset-buttons button,
+            #preset-navigation-container button {
+                width: 100% !important;            /* Ocupa toda a largura da lista (200px) */
+                max-width: 100% !important;
+                height: 26px !important;           /* Altura confortável para o toque no iPhone */
+                min-height: 26px !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                box-sizing: border-box !important;
+                
+                font-size: 12px !important;
+                font-weight: 900 !important;
+                text-align: center !important;
+                line-height: 24px !important;
+                border-radius: 6px !important;     /* Cantos levemente suavizados industrial */
+                
+                /* Identidade Premium DarkStar */
+                background: linear-gradient(180deg, #1b1d26 0%, #0d0e12 100%) !important;
+                border: 1.5px solid #3d4659 !important;
+                color: #00fff5 !important;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.5) !important;
+                cursor: pointer !important;
+            }
+
+            /* Feedback tátil ao pressionar */
+            .preset-navigation-container button:active,
+            .preset-buttons button:active,
+            #preset-navigation-container button:active {
+                background: #00fff5 !important;
+                color: #000000 !important;
+                border-color: #00fff5 !important;
+                box-shadow: 0 0 8px rgba(0,255,245,0.4) !important;
+            }
         }
     </style>
+    <script>// DarkStar Native Engine V7 - Controlador Adaptativo Concorrente
+        (function() {
+            function injectNavbarEditButton() {
+                if (window.innerWidth < 768) {
+                    const topBar = document.querySelector('.top-bar');
+                    if (topBar && !document.getElementById('darkstar-nav-edit-btn')) {
+                        const editBtn = document.createElement('button');
+                        editBtn.id = 'darkstar-nav-edit-btn';
+                        editBtn.textContent = '⚙ EDIT';
+                        // Estilo micro e perfeitamente casado na direita da barra entre o PREV e o MENU
+                        editBtn.style.cssText = "position: absolute; right: 38px; top: 50%; transform: translateY(-50%); background: #1a1d26; border: 1px solid #00fff5; color: #00fff5; font-size: 7.5px; font-weight: 900; padding: 4px 6px; border-radius: 3px; cursor: pointer; z-index: 100005; white-space: nowrap;";
+                        topBar.appendChild(editBtn);
+                    }
+                }
+            }
 
+            // Injeta imediatamente e monitora se o framework reconstruiu a barra
+            injectNavbarEditButton();
+            setInterval(injectNavbarEditButton, 500);
+
+            // Gerenciador de eventos unificado
+            document.addEventListener('click', function(e) {
+                const sidebar = document.querySelector('.sidebar');
+                const panel = document.getElementById('effectsPanel') || document.querySelector('.effects-panel');
+                const chain = document.querySelector('.signal-chain');
+                
+                // 💻 CLIQUES NO PC
+                if (window.innerWidth >= 768 && chain) {
+                    const isPcEditBtn = e.target.classList.contains('signal-chain') && e.offsetX >= (e.target.clientWidth - 170);
+                    if (isPcEditBtn) {
+                        panel.classList.toggle('darkstar-show-panel');
+                    }
+                    return;
+                }
+
+                // 📲 CLIQUES NO SMARTPHONE
+                if (window.innerWidth < 768) {
+                    const rectTopBar = document.querySelector('.top-bar').getBoundingClientRect();
+                    const clickX = e.clientX - rectTopBar.left;
+
+                    // 1. Toque no botão PREV (Detectado por coordenadas de área)
+                    if (e.target.classList.contains('top-bar') && clickX >= (rectTopBar.width - 85) && clickX <= (rectTopBar.width - 50)) {
+                        const prevBtn = document.querySelector('button:contains("-")') || document.querySelectorAll('#preset-navigation-container button')[0];
+                        if (prevBtn) prevBtn.click();
+                        return;
+                    }
+
+                    // 2. Toque no botão EDIT
+                    if (e.target.id === 'darkstar-nav-edit-btn') {
+                        panel.classList.toggle('darkstar-show-panel');
+                        e.target.style.background = panel.classList.contains('darkstar-show-panel') ? '#00fff5' : '#1a1d26';
+                        e.target.style.color = panel.classList.contains('darkstar-show-panel') ? '#000' : '#00fff5';
+                        return;
+                    }
+
+                    // 3. Toque no botão MENU ☰
+                    if (e.target.textContent === '☰' || (e.target.classList.contains('top-bar') && clickX >= (rectTopBar.width - 32))) {
+                        if (sidebar) sidebar.classList.toggle('darkstar-open-menu');
+                        return;
+                    }
+
+                    // Fecha a barra se clicar fora, mas ignora interações com a top-bar
+                    if (sidebar && sidebar.classList.contains('darkstar-open-menu') && !sidebar.contains(e.target) && e.target.id !== 'darkstar-nav-edit-btn' && !e.target.classList.contains('top-bar')) {
+                        sidebar.classList.remove('darkstar-open-menu');
+                    }
+                }
+            });
+        })();</script>
     <script>// Gerenciador de clique para alternar o painel com transição suave
         document.addEventListener('click', function(e) {
             const panel = document.getElementById('effectsPanel') || document.querySelector('.effects-panel');
