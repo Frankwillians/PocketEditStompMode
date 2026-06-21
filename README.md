@@ -66,11 +66,3 @@ Este projeto é uma modificação visual e de mapeamento de hardware desenvolvid
 * **Repositório Base Original:** [suckyble/PocketEdit](https://github.com/suckyble/PocketEdit)
 * **Créditos do Desenvolvedor:** Todos os direitos e créditos pelo desenvolvimento do núcleo reativo do web app, tratamento MIDI, processamento e mapeamento central pertencem ao criador original no repositório do **suckyble**.
 * **Modificação Stomp Mode:** Desenvolvido pela **DarkStar Sim Tech** (focada em engenharia de hardware simulador, eletrônica aplicada, modificações de periféricos de alta precisão e interfaces embutidas).
-
----
-
-## 📂 Como Aplicar no Repositório (Desenvolvimento Local)
-
-1. Cole as novas regras de estilo no final da sua tag `<style>` no arquivo `index.html`.
-2. Adicione o Listener de coordenadas do botão no final do bloco `<script>`.
-3. Suba as alterações para o seu servidor local ou diretamente no seu repositório do GitHub para atualizar a sua build do Pages.
