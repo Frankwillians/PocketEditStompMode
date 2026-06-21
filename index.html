@@ -6,22 +6,23 @@
     <title>Pocket Edit</title>
 
 <style>
+        /* VISOR LED SUPERIOR NÉON */
         .top-bar {
             background: #06070a !important;
             height: 75px !important;
-            border-bottom: 2px solid #1f232b !important;
+            border-bottom: 2px solid #1a1d24 !important;
             padding: 0 25px !important;
         }
 
         .patch-info {
             background: #020406;
-            border: 2px solid #10151c;
+            border: 2px solid #00fff5;
             padding: 8px 20px;
-            border-radius: 8px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             gap: 20px;
-            box-shadow: inset 0 0 15px rgba(0, 255, 245, 0.08);
+            box-shadow: 0 0 15px rgba(0, 255, 245, 0.2), inset 0 0 10px rgba(0, 255, 245, 0.1);
             min-width: 380px;
         }
 
@@ -33,7 +34,7 @@
             background: transparent !important;
             border: none !important;
             padding: 0 !important;
-            text-shadow: 0 0 10px rgba(0, 255, 245, 0.6) !important;
+            text-shadow: 0 0 12px rgba(0, 255, 245, 0.8) !important;
             letter-spacing: 1px;
         }
 
@@ -41,145 +42,215 @@
             font-family: 'Segoe UI', system-ui, sans-serif !important;
             font-size: 18px !important;
             font-weight: 900 !important;
-            color: #cbd5e1 !important;
+            color: #e2e8f0 !important;
             text-transform: uppercase !important;
             letter-spacing: 2px !important;
-            text-shadow: 0 0 4px rgba(203, 213, 225, 0.2);
+            text-shadow: 0 0 5px rgba(0, 255, 245, 0.3);
         }
 
+        /* CONTAINER INJETADO PARA RECEBER O PAINEL DE EDIÇÃO ORIGINAL DO SITE */
+        #darkstar-dynamic-editor-slot {
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            background: #0b0d12;
+            border: 1px solid #1e222b;
+            box-shadow: inset 0 4px 15px rgba(0,0,0,0.6);
+            display: none; /* Só exibe se houver um módulo selecionado */
+            padding: 10px;
+        }
+        #darkstar-dynamic-editor-slot:has(*) {
+            display: block;
+        }
+
+        /* O CHASSI PRINCIPAL DA PEDALEIRA (ALUMÍNIO NAVAL ESCOVADO) */
         #darkstar-stomp-rack {
-            background: linear-gradient(180deg, #0d1016, #090b0e);
-            border-top: 2px solid #1f232b;
-            border-bottom: 2px solid #000;
-            padding: 15px 25px;
+            background: linear-gradient(180deg, #1e222b 0%, #15181f 40%, #0d0f13 100%);
+            border-top: 4px solid #2e3543;
+            border-bottom: 6px solid #000000;
+            padding: 25px;
             font-family: 'Segoe UI', system-ui, sans-serif;
-            color: #e0e0e0;
+            color: #e2e8f0;
             text-align: left;
             margin-top: -2px;
-            box-shadow: inset 0 10px 30px rgba(0,0,0,0.7);
+            box-shadow: inset 0 12px 25px rgba(255,255,255,0.05), inset 0 -12px 25px rgba(0,0,0,0.8), 0 15px 35px rgba(0,0,0,0.9);
+            position: relative;
+        }
+
+        #darkstar-stomp-rack::before {
+            content: '';
+            position: absolute;
+            top: 12px; left: 0; right: 0;
+            height: 1px;
+            background: rgba(255,255,255,0.04);
+            pointer-events: none;
         }
 
         #darkstar-stomp-rack h3 {
-            margin: 0 0 15px 0;
-            font-size: 11px;
+            margin: 0 0 20px 0;
+            font-size: 12px;
             text-transform: uppercase;
-            color: #00adb5;
-            letter-spacing: 2.5px;
-            font-weight: 900;
+            color: #94a3b8;
+            letter-spacing: 3px;
+            font-weight: 800;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            text-shadow: 1px 1px 2px #000;
+            border-bottom: 1px solid #1e222b;
+            padding-bottom: 8px;
         }
 
+        /* GRIDS DE COMPONENTES */
         #stomp-matrix-container {
             display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 12px;
+            grid-template-columns: repeat(6, minmax(110px, 1fr));
+            gap: 15px;
             width: 100%;
+            margin-bottom: 20px;
         }
 
+        #preset-navigation-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            width: 100%;
+            padding-top: 20px;
+            border-top: 2px solid #0d0f13;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+
+        /* OS PEDALBOXES INDIVIDUAIS (EFEITOS DE CIMA) */
         .darkstar-stompbox {
-            background: #171920;
-            border: 1px solid #22252e;
-            border-radius: 8px;
-            padding: 10px 6px;
+            background: linear-gradient(135deg, #252b37 0%, #1a1e26 100%);
+            border: 2px solid #11141a;
+            border-top: 5px solid #4a5568;
+            border-radius: 6px;
+            padding: 16px 8px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
-            min-height: 120px;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.4);
-            transition: transform 0.1s;
+            min-height: 165px; 
+            box-shadow: 0 10px 16px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+            position: relative;
         }
-        .darkstar-stompbox:hover { transform: translateY(-2px); border-color: #333; }
+
+        /* ESTILO DOS DOIS PEDAIS DE NAVEGAÇÃO INFERIORES */
+        .darkstar-stompbox.navigation-box {
+            background: linear-gradient(135deg, #2a2d35 0%, #1b1d22 100%);
+            min-height: 85px;
+            flex-direction: row;
+            padding: 10px 30px;
+            border-top: 5px solid #00fff5;
+        }
 
         .stomp-name {
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #94a3b8;
-            margin-bottom: 4px;
+            letter-spacing: 1.5px;
+            color: #cbd5e1;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
         }
 
         .stomp-led {
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            background: #200d0d;
-            border: 1px solid #000;
-            margin-bottom: 5px;
+            background: #1a0808;
+            border: 2px solid #07080a;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
+            transition: all 0.15s ease;
         }
         .stomp-led.active {
-            background: #ff2222;
-            box-shadow: 0 0 10px #ff2222, inset 0 0 2px #fff;
+            background: #ff2a2a;
+            box-shadow: 0 0 12px #ff2a2a, 0 0 4px #ff2a2a, inset 0 1px 2px #fff;
+        }
+        .stomp-led.utility-led.active {
+            background: #00fff5;
+            box-shadow: 0 0 12px #00fff5, 0 0 4px #00fff5, inset 0 1px 2px #fff;
         }
 
         .stomp-footswitch {
-            width: 36px;
-            height: 32px;
-            border: 3px solid #0b0c10;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             cursor: pointer;
-            background: radial-gradient(circle, #8e929c 30%, #4a4c54 80%);
-            box-shadow: 0 3px 5px rgba(0,0,0,0.5);
-            margin-bottom: 5px;
+            border: 4px solid #333842;
+            background: radial-gradient(circle, #b8bcc6 15%, #7a8090 55%, #484d58 85%, #22252c 100%);
+            box-shadow: 0 6px 10px rgba(0,0,0,0.6), inset 0 2px 3px rgba(255,255,255,0.4);
+            transition: transform 0.05s ease, box-shadow 0.05s ease;
+            position: relative;
         }
-        .stomp-footswitch:active { transform: scale(0.92); }
+        .stomp-footswitch::after {
+            content: '';
+            position: absolute;
+            top: 22%; left: 22%; width: 56%; height: 56%;
+            border-radius: 50%;
+            background: radial-gradient(circle, #d1d5db 20%, #6b7280 80%);
+            box-shadow: inset 0 1px 2px rgba(255,255,255,0.6), 0 2px 4px rgba(0,0,0,0.4);
+        }
+        .stomp-footswitch:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.8), inset 0 1px 2px rgba(0,0,0,0.6);
+        }
 
         .stomp-mapping-label {
-            font-size: 8px;
-            font-family: monospace;
-            color: #475569;
-            background: #07080b;
-            padding: 1px 4px;
-            border-radius: 2px;
-            margin-bottom: 5px;
-            max-width: 100%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            font-size: 10px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #00ffaa;
+            background: #090b0e;
+            padding: 3px 8px;
+            border-radius: 4px;
+            border: 1px solid #22252e;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.8);
+            text-align: center;
+            min-width: 80px;
         }
 
         .darkstar-learn-btn {
-            font-size: 8px;
-            font-weight: bold;
+            font-size: 9px;
+            font-weight: 800;
             color: #64748b;
-            background: #0b0c10;
-            border: 1px solid #22252e;
-            padding: 3px 0;
-            border-radius: 3px;
+            background: linear-gradient(180deg, #1e222b 0%, #12151a 100%);
+            border: 1px solid #0d0f12;
+            padding: 5px 12px;
+            border-radius: 4px;
             cursor: pointer;
             text-transform: uppercase;
-            width: 100%;
-            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+            transition: all 0.1s;
         }
-        .darkstar-learn-btn:hover { background: #1a1e2a; color: #fff; }
+        .darkstar-learn-btn:hover { background: #232833; color: #cbd5e1; }
         .darkstar-learn-btn.listening {
-            background: #ef4444;
-            color: #fff;
-            animation: stompPulse 1.5s infinite;
+            background: #ef4444 !important;
+            color: #ffffff !important;
+            border-color: #7f1d1d;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+            animation: stompPulse 1.2s infinite;
         }
 
         .darkstar-sidebar-select-group {
             margin-top: 12px;
             padding-top: 12px;
-            border-top: 1px dashed #333;
+            border-top: 1px dashed #22252e;
             text-align: left;
         }
         .darkstar-sidebar-select-group label {
             font-size: 9px;
             font-weight: bold;
             text-transform: uppercase;
-            color: #64748b;
+            color: #475569;
             display: block;
             margin-bottom: 5px;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
         .darkstar-sidebar-select {
             width: 100%;
-            background: #07080b;
-            border: 1px solid #252936;
+            background: #090b0e;
+            border: 1px solid #1e222b;
             border-radius: 4px;
             color: #00fff5;
             padding: 6px;
@@ -187,18 +258,23 @@
             outline: none;
             cursor: pointer;
             font-weight: bold;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.6);
         }
 
-        @keyframes stompPulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+        @keyframes stompPulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
     </style>
 
     <template id="darkstar-rack-template">
         <div id="darkstar-stomp-rack">
             <h3>
-                <span>DS Sim Tech // Stomp Control Rack</span>
-                <span style="font-size: 9px; color: #64748b; letter-spacing: 1px; font-weight: normal;">Hardware Bypass Matrix</span>
+                <span>Stompboard</span>
+                <span style="font-size: 9px; color: #475569; letter-spacing: 1px; font-weight: normal;">Hardware Emulation System v1.5</span>
             </h3>
+            
+            <div id="darkstar-dynamic-editor-slot"></div>
+
             <div id="stomp-matrix-container"></div>
+            <div id="preset-navigation-container"></div>
         </div>
     </template>
 
@@ -207,16 +283,21 @@
             let activeGamepadIdx = null;
             let learningStompTarget = null;
             
-            const modulosPocket = [
-                { id: 0, name: "NR", color: "#4a5568" },
-                { id: 1, name: "FX1", color: "#00ffaa" },
-                { id: 2, name: "DRV", color: "#ffd000" },
+            const modulosBypass = [
+                { id: "0", name: "NR", color: "#4a5568" },
+                { id: "1", name: "FX1", color: "#00ffaa" },
+                { id: "2", name: "DRV", color: "#ffd000" },
                 { id: 6, name: "FX2", color: "#3399ff" },
                 { id: 7, name: "DLY", color: "#ff6600" },
                 { id: 8, name: "RVB", color: "#b366ff" }
             ];
 
-            let mapaBotaoStomp = { "0": null, "1": null, "2": null, "6": null, "7": null, "8": null };
+            const modulosNavegacao = [
+                { id: "nav_prev", name: "PRESET -", color: "#00fff5" },
+                { id: "nav_next", name: "PRESET +", color: "#00fff5" }
+            ];
+
+            let mapaBotaoStomp = { "0": null, "1": null, "2": null, "6": null, "7": null, "8": null, "nav_prev": null, "nav_next": null };
 
             if (localStorage.getItem('darkstar_pocket_stomp_map')) {
                 try { mapaBotaoStomp = JSON.parse(localStorage.getItem('darkstar_pocket_stomp_map')); } catch(e) {}
@@ -230,7 +311,10 @@
                     const template = document.getElementById('darkstar-rack-template');
                     const rackClone = template.content.cloneNode(true);
                     signalChainOriginal.after(rackClone);
-                    construirMatrizStomps();
+                    construirMatrizStompsFixas();
+                    
+                    // Inicia o interceptador de nós para capturar e mover os painéis de edição originais
+                    ativarCapturadorDePainelOriginal();
                 }
 
                 const connectionPanel = document.querySelector('.connection-panel');
@@ -252,35 +336,88 @@
                 }
             }
 
-            function construirMatrizStomps() {
-                const container = document.getElementById('stomp-matrix-container');
-                if (!container) return;
-                container.innerHTML = '';
+            // MOTOR MUTATION OBSERVER: Monitoriza e redireciona os menus originais para o topo do nosso rack
+            function ativarCapturadorDePainelOriginal() {
+                const slotDestino = document.getElementById('darkstar-dynamic-editor-slot');
+                const bodyContainer = document.body;
 
-                modulosPocket.forEach(mod => {
-                    const mappedBtn = mapaBotaoStomp[mod.id];
-                    const labelTxt = mappedBtn !== null ? `Btn ${mappedBtn}` : "Livre";
+                const observer = new MutationObserver((mutations) => {
+                    // Procura por painéis de parâmetros gerados pelo clique nos módulos (Amp, Delay, etc.)
+                    const painelOriginal = document.querySelector('.module-edit-panel, .param-panel, [class*="-panel-container"]');
+                    
+                    if (painelOriginal && painelOriginal.parentElement !== slotDestino) {
+                        // Move o painel do rodapé para cima das nossas stomps na mesma fração de segundo
+                        slotDestino.appendChild(painelOriginal);
+                    }
+                });
 
+                observer.observe(bodyContainer, { childList: true, subtree: true });
+            }
+
+            function construirMatrizStompsFixas() {
+                const containerEfeitos = document.getElementById('stomp-matrix-container');
+                const containerNavegacao = document.getElementById('preset-navigation-container');
+                if (!containerEfeitos || !containerNavegacao) return;
+
+                containerEfeitos.innerHTML = '';
+                containerNavegacao.innerHTML = '';
+
+                modulosBypass.forEach(mod => {
                     const box = document.createElement('div');
                     box.className = 'darkstar-stompbox';
                     box.style.borderTopColor = mod.color;
-
                     box.innerHTML = `
                         <div class="stomp-name">${mod.name}</div>
                         <div id="stomp-led-${mod.id}" class="stomp-led"></div>
-                        <div class="stomp-footswitch" onclick="window.forçarTrocaBypassDarkStar(${mod.id}, event)"></div>
-                        <div class="stomp-mapping-label" id="map_label_${mod.id}">${labelTxt}</div>
-                        <button class="darkstar-learn-btn" onclick="window.dispararMapeamentoStomp(${mod.id}, event)">Mapear Pé</button>
+                        <div class="stomp-footswitch" onclick="window.forçarAtivacaoModuloDarkStar('${mod.id}', event)"></div>
+                        <div class="stomp-mapping-label" id="map_label_${mod.id}">Livre</div>
+                        <button class="darkstar-learn-btn" onclick="window.dispararMapeamentoStomp('${mod.id}', event)">Mapear</button>
                     `;
-                    container.appendChild(box);
+                    containerEfeitos.appendChild(box);
+                });
+
+                modulosNavegacao.forEach(mod => {
+                    const box = document.createElement('div');
+                    box.className = 'darkstar-stompbox navigation-box';
+                    box.style.borderTopColor = mod.color;
+                    box.innerHTML = `
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div id="stomp-led-${mod.id}" class="stomp-led utility-led"></div>
+                            <div class="stomp-name">${mod.name}</div>
+                        </div>
+                        <div class="stomp-footswitch" onclick="window.forçarAtivacaoModuloDarkStar('${mod.id}', event)"></div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div class="stomp-mapping-label" id="map_label_${mod.id}">Livre</div>
+                            <button class="darkstar-learn-btn" onclick="window.dispararMapeamentoStomp('${mod.id}', event)">Mapear</button>
+                        </div>
+                    `;
+                    containerNavegacao.appendChild(box);
+                });
+
+                atualizarApenasLabelsTexto();
+            }
+
+            function atualizarApenasLabelsTexto() {
+                [...modulosBypass, ...modulosNavegacao].forEach(mod => {
+                    const labelNode = document.getElementById(`map_label_${mod.id}`);
+                    if (labelNode) {
+                        const mapped = mapaBotaoStomp[mod.id];
+                        if (mapped !== null && mapped !== undefined) {
+                            const partes = String(mapped).split("_");
+                            const tipo = partes[0];
+                            const valor = partes[1] || "";
+                            labelNode.innerText = (tipo === "Joy") ? `Btn ${valor}` : `Tec: ${valor}`;
+                        } else {
+                            labelNode.innerText = "Livre";
+                        }
+                    }
                 });
             }
 
             function sincronizarLedsDoRack() {
-                modulosPocket.forEach(mod => {
-                    const modOriginal = document.querySelector(`.chain-module[data-module-id="${mod.id}"]`);
+                modulosBypass.forEach(mod => {
                     const ledRack = document.getElementById(`stomp-led-${mod.id}`);
-                    
+                    const modOriginal = document.querySelector(`.chain-module[data-module-id="${mod.id}"]`);
                     if (modOriginal && ledRack) {
                         const statusDotOriginal = modOriginal.querySelector('.module-status');
                         if (statusDotOriginal && statusDotOriginal.classList.contains('on')) {
@@ -298,36 +435,111 @@
                 
                 document.querySelectorAll('.darkstar-learn-btn').forEach(b => {
                     b.classList.remove('listening');
-                    b.innerText = 'Mapear Pé';
+                    b.innerText = 'Mapear';
                 });
 
                 if (event && event.target) {
                     event.target.classList.add('listening');
-                    event.target.innerText = 'Pise...';
+                    event.target.innerText = 'Aperte...';
                 }
             };
 
-            // SOLUÇÃO INFALÍVEL: Emula um clique físico perfeito do mouse estruturado que a engine original captura obrigatoriamente
-            window.forçarTrocaBypassDarkStar = function(moduleId, event) {
+            window.forçarAtivacaoModuloDarkStar = function(moduleId, event) {
                 if (event) event.stopPropagation();
                 
-                const modOriginal = document.querySelector(`.chain-module[data-module-id="${moduleId}"]`);
-                if (modOriginal) {
-                    // Força a UI a focar na aba abrindo os parâmetros
-                    modOriginal.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
-                    
-                    // Busca as bolhas de bypass originais do HTML que você me enviou
-                    const statusDotOriginal = modOriginal.querySelector('.module-status');
-                    const toggleSwitchUI = document.getElementById(`module-enable-${moduleId}`);
-                    
-                    // Dispara o clique simulado no evento nativo que roda os 15k de linhas de transmissão MIDI da pedaleira
-                    if (statusDotOriginal) {
-                        statusDotOriginal.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
-                    } else if (toggleSwitchUI) {
-                        toggleSwitchUI.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+                if (modulosBypass.some(m => m.id === Number(moduleId) || m.id === String(moduleId))) {
+                    const modOriginal = document.querySelector(`.chain-module[data-module-id="${moduleId}"]`);
+                    if (modOriginal) {
+                        modOriginal.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+                        const statusDotOriginal = modOriginal.querySelector('.module-status');
+                        if (statusDotOriginal) statusDotOriginal.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+                    }
+                } else if (moduleId === "nav_prev" || moduleId === "nav_next") {
+                    const listItems = Array.from(document.querySelectorAll('.patch-item, .patch-list-item, [id*="patch-"], [class*="patch-item"]'))
+                        .filter(item => {
+                            const txt = item.innerText.trim();
+                            return txt.match(/^[PF]?\d+/i) || item.getAttribute('data-patch-id') !== null;
+                        });
+
+                    if (listItems.length === 0) return;
+
+                    let activeIndex = listItems.findIndex(item => 
+                        item.classList.contains('active') || 
+                        item.classList.contains('selected') ||
+                        item.classList.contains('current')
+                    );
+
+                    if (activeIndex === -1) {
+                        const currentPatchNum = document.querySelector('.patch-number');
+                        if (currentPatchNum) {
+                            const numInt = parseInt(currentPatchNum.value || currentPatchNum.innerText || "1", 10);
+                            activeIndex = isNaN(numInt) ? 0 : Math.max(0, Math.min(numInt - 1, listItems.length - 1));
+                        } else {
+                            activeIndex = 0;
+                        }
+                    }
+
+                    let targetIndex = activeIndex;
+                    if (moduleId === "nav_next") {
+                        targetIndex = (activeIndex + 1) >= listItems.length ? 0 : activeIndex + 1;
+                    } else {
+                        targetIndex = (activeIndex - 1) < 0 ? listItems.length - 1 : activeIndex - 1;
+                    }
+
+                    const targetBtn = listItems[targetIndex];
+                    if (targetBtn) {
+                        targetBtn.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }));
+                        targetBtn.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+                        targetBtn.dispatchEvent(new MouseEvent('mouseup', { bubbles: true, cancelable: true }));
+                        targetBtn.dispatchEvent(new Event('change', { bubbles: true }));
+                        targetBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+
+                    const ledUtil = document.getElementById(`stomp-led-${moduleId}`);
+                    if (ledUtil) {
+                        ledUtil.classList.add('active');
+                        setTimeout(() => ledUtil.classList.remove('active'), 200);
                     }
                 }
             };
+
+            function gerenciarAntiConflitoMapeamento(idIdentificador, targetId) {
+                for (let mId in mapaBotaoStomp) {
+                    if (mapaBotaoStomp[mId] === idIdentificador && mId !== targetId) {
+                        mapaBotaoStomp[mId] = null;
+                    }
+                }
+            }
+
+            document.addEventListener('keydown', function(e) {
+                if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'SELECT') return;
+
+                const keyId = `Key_${e.key}`;
+
+                if (learningStompTarget !== null) {
+                    e.preventDefault();
+                    let targetCache = learningStompTarget;
+                    learningStompTarget = null;
+                    
+                    gerenciarAntiConflitoMapeamento(keyId, targetCache);
+                    mapaBotaoStomp[targetCache] = keyId;
+                    localStorage.setItem('darkstar_pocket_stomp_map', JSON.stringify(mapaBotaoStomp));
+
+                    document.querySelectorAll('.darkstar-learn-btn').forEach(b => {
+                        b.classList.remove('listening');
+                        b.innerText = 'Mapear';
+                    });
+
+                    atualizarApenasLabelsTexto();
+                } else {
+                    for (let mId in mapaBotaoStomp) {
+                        if (mapaBotaoStomp[mId] === keyId) {
+                            e.preventDefault();
+                            window.forçarAtivacaoModuloDarkStar(mId, null);
+                        }
+                    }
+                }
+            });
 
             function processarMotorDarkStar() {
                 inicializarInterfaceDarkStar();
@@ -360,32 +572,40 @@
                     for (let i = 0; i < gp.buttons.length; i++) {
                         let pressed = gp.buttons[i].pressed;
                         
-                        if (pressed && !window.darkStarButtonsState[i]) {
-                            if (learningStompTarget !== null) {
-                                for (let mId in mapaBotaoStomp) {
-                                    if (mapaBotaoStomp[mId] === i && mId !== learningStompTarget) {
-                                        mapaBotaoStomp[mId] = null;
-                                    }
-                                }
+                        if (pressed && learningStompTarget !== null) {
+                            const joyId = `Joy_${i}`;
+                            let targetCache = learningStompTarget;
+                            learningStompTarget = null;
+                            
+                            gerenciarAntiConflitoMapeamento(joyId, targetCache);
+                            mapaBotaoStomp[targetCache] = joyId;
+                            localStorage.setItem('darkstar_pocket_stomp_map', JSON.stringify(mapaBotaoStomp));
+                            
+                            window.darkStarButtonsState[i] = true;
+                            window.darkStarIgnoreNextRelease = {}; 
 
-                                mapaBotaoStomp[learningStompTarget] = i;
-                                localStorage.setItem('darkstar_pocket_stomp_map', JSON.stringify(mapaBotaoStomp));
-                                
-                                window.darkStarButtonsState[i] = true;
-                                window.darkStarIgnoreNextRelease[i] = false;
-                                learningStompTarget = null;
-                                
-                                construirMatrizStomps();
-                                break;
-                            } else if (!window.darkStarIgnoreNextRelease[i]) {
+                            document.querySelectorAll('.darkstar-learn-btn').forEach(b => {
+                                b.classList.remove('listening');
+                                b.innerText = 'Mapear';
+                            });
+                            
+                            atualizarApenasLabelsTexto();
+                            break;
+                        }
+                        
+                        if (pressed && !window.darkStarButtonsState[i]) {
+                            const joyId = `Joy_${i}`;
+                            if (!window.darkStarIgnoreNextRelease[i]) {
                                 for (let mId in mapaBotaoStomp) {
-                                    if (mapaBotaoStomp[mId] === i) {
-                                        window.forçarTrocaBypassDarkStar(parseInt(mId), null);
+                                    if (mapaBotaoStomp[mId] === joyId) {
+                                        window.forçarAtivacaoModuloDarkStar(mId, null);
                                     }
                                 }
                             }
                         }
-                        if (!pressed && window.darkStarButtonsState[i]) window.darkStarIgnoreNextRelease[i] = false;
+                        if (!pressed && window.darkStarButtonsState[i]) {
+                            if (window.darkStarIgnoreNextRelease) window.darkStarIgnoreNextRelease[i] = false;
+                        }
                         window.darkStarButtonsState[i] = pressed;
                     }
                 }
@@ -397,7 +617,7 @@
             });
         })();
     </script>
-  <!-- Parte principal do do css-->
+<!-- princpal-->
     <style>
 
       
@@ -939,7 +1159,180 @@
 
         .chain-module.dragging { opacity: 0.5; border: 1px dashed var(--accent); }
         @keyframes stompPulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+          
+        
+   /* ========================================================== */
+        /* PEDALEIRA STOMP DESIGN: BOTÃO COM INDICADOR LED REAL       */
+        /* ========================================================== */
+        
+        .main-content {
+            display: flex !important;
+            flex-direction: column !important;
+            position: relative !important;
+            box-sizing: border-box !important;
+        }
+
+        /* CADEIA DE SINAL COM MARGEM PARA O BOTÃO */
+        .signal-chain {
+            order: 1 !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            height: auto !important;
+            min-height: 245px !important;
+            background: var(--rack-body) !important;
+            border-bottom: 2px solid var(--panel-border) !important;
+            padding: 25px 190px 25px 25px !important; /* Respiro para o botão na direita */
+            box-sizing: border-box !important;
+            position: relative !important;
+        }
+
+        /* 🎛️ O BOTÃO EM ESTADO NORMAL (DESLIGADO) */
+        .signal-chain::after {
+            content: '⚙ EDIT EFFECTS' !important;
+            position: absolute !important;
+            top: 50% !important;
+            right: 25px !important;
+            transform: translateY(-50%) !important;
+            
+            /* Visual Chassi de Metal Desligado */
+            background: linear-gradient(180deg, #282c37 0%, #1a1d24 100%) !important;
+            border: 2px solid #3f4756 !important;
+            color: #8892b0 !important;
+            font-size: 10px !important;
+            font-weight: 900 !important;
+            padding: 10px 16px 10px 32px !important; /* Espaço na esquerda para o LED */
+            border-radius: 6px !important;
+            cursor: pointer !important;
+            
+            /* Sombra de pedal alto (não pressionado) */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1) !important;
+            z-index: 99999 !important;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+
+        /* 🔴 O LED (Virtual) - Fica apagado/escuro por padrão */
+        .signal-chain::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 50% !important;
+            right: 128px !important; /* Alinhado cirurgicamente dentro do botão */
+            transform: translateY(-50%) !important;
+            width: 8px !important;
+            height: 8px !important;
+            border-radius: 50% !important;
+            background: #202530 !important; /* LED Apagado */
+            border: 1px solid #101520 !important;
+            z-index: 100000 !important;
+            pointer-events: none !important;
+            transition: all 0.2s ease !important;
+        }
+
+        /* 🟢 ESTADO ATIVO (QUANDO O BODY/CONTAINER ESTÁ COM O PAINEL ABERTO) */
+        /* O truque: Quando a classe reativa existir, mudamos o visual usando :has() */
+        .main-content:has(.darkstar-show-panel) .signal-chain::after {
+            background: linear-gradient(180deg, #15181f 0%, #20242f 100%) !important;
+            border-color: var(--accent) !important; /* Borda acende com a cor néon */
+            color: #fff !important;
+            
+            /* Efeito físico de pedal afundado/pressionado */
+            box-shadow: 0 1px 2px rgba(0,0,0,0.6), inset 0 2px 5px rgba(0,0,0,0.8) !important;
+            transform: translateY(-48%) scale(0.98) !important;
+        }
+
+        /* ⚡ LED ACESO (NÉON BRILHANTE) */
+        .main-content:has(.darkstar-show-panel) .signal-chain::before {
+            background: #00fff5 !important; /* Cor do LED ativo */
+            box-shadow: 0 0 10px #00fff5, 0 0 20px #00fff5 !important; /* Brilho Néon */
+        }
+
+        /* Efeito de clique físico instantâneo */
+        .signal-chain:not(:after):active::after {
+            transform: translateY(-46%) scale(0.95) !important;
+        }
+
+        /* O PAINEL DE PARÂMETROS COM ANIMAÇÃO GAVETA */
+        .effects-panel, #effectsPanel {
+            order: 2 !important; 
+            width: 100% !important;
+            max-width: 100% !important;
+            background: #0b0c10 !important; 
+            border-bottom: 2px solid var(--panel-border) !important;
+            box-sizing: border-box !important;
+            position: relative !important;
+            
+            display: block !important; 
+            max-height: 0 !important;   
+            opacity: 0 !important;      
+            padding: 0 20px !important; 
+            overflow: hidden !important; 
+            
+            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                        opacity 0.25s ease-in-out, 
+                        padding 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+
+        .effects-panel.darkstar-show-panel,
+        #effectsPanel.darkstar-show-panel {
+            max-height: 400px !important; 
+            opacity: 1 !important;        
+            padding: 20px !important;    
+            overflow-y: auto !important;  
+        }
+
+        /* A PEDALEIRA BASE DARKSTAR */
+        #darkstar-stomp-rack {
+            order: 3 !important; 
+            background: linear-gradient(180deg, #1e222b 0%, #15181f 40%, #0d0f13 100%) !important;
+            border-top: 4px solid #2e3543 !important;
+            border-bottom: 6px solid #000000 !important;
+            padding: 20px !important;
+            box-sizing: border-box !important;
+            width: 100% !important;
+            margin-top: 0 !important;
+        }
+
+        #stomp-matrix-container {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 12px !important;
+        }
+
+        #preset-navigation-container {
+            display: grid !important;
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 12px !important;
+            margin-top: 15px !important;
+        }
+
+        @media (min-width: 992px) {
+            #stomp-matrix-container {
+                grid-template-columns: repeat(6, minmax(100px, 1fr)) !important;
+            }
+        }
     </style>
+
+    <script>// Gerenciador de clique para alternar o painel com transição suave
+        document.addEventListener('click', function(e) {
+            const panel = document.getElementById('effectsPanel') || document.querySelector('.effects-panel');
+            const chain = document.querySelector('.signal-chain');
+            if (!panel || !chain) return;
+
+            // Identifica o clique na região do botão embutido na direita da cadeia
+            const isChainButton = e.target.classList.contains('signal-chain') && e.offsetX >= (e.target.clientWidth - 170);
+            
+            if (isChainButton) {
+                panel.classList.toggle('darkstar-show-panel');
+                
+                // Altera o texto do pseudo-elemento dinamicamente
+                const buttonText = panel.classList.contains('darkstar-show-panel') ? '✕ CLOSE EDITOR' : '⚙ EDIT EFFECTS';
+                
+                // Remove regra anterior se houver para não entupir a folha de estilos
+                if (document.styleSheets[0].cssRules[document.styleSheets[0].cssRules.length - 1].selectorText === '.signal-chain::after') {
+                    document.styleSheets[0].deleteRule(document.styleSheets[0].cssRules.length - 1);
+                }
+                document.styleSheets[0].insertRule(`.signal-chain::after { content: "${buttonText}" !important; }`, document.styleSheets[0].cssRules.length);
+            }
+        });</script>
 </head>
 <body>
     <div class="main-container">
