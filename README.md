@@ -8,6 +8,21 @@ Esta é uma modificação de interface customizada desenvolvida pela **DarkStar 
 
 ---
 
+## 🌐 Acesse e Use Online (PC, iPhone & Android)
+
+Para utilizar a aplicação diretamente pelo navegador sem necessidade de instalação local, acesse o link oficial hospedado no GitHub Pages:
+
+🚀 **[Acessar Pocket Edit Stomp Mode Online](https://frankwillians.github.io/PocketEditStompMode/)**
+
+### 📱 Como utilizar em Smartphones e parear via Bluetooth (BLE):
+
+A interface foi totalmente otimizada para telas sensíveis ao toque (*touchscreen*) e responde perfeitamente em dispositivos móveis, adaptando o grid de stomps automaticamente.
+
+* **No Android:** Acesse o link utilizando preferencialmente o **Google Chrome** ou **Samsung Internet**. O Android possui suporte nativo à API WebBluetooth e WebMIDI diretamente pelo navegador, permitindo parear seus footswitches Bluetooth ou controladores USB (via cabo OTG) direto na página.
+* **No iPhone (iOS):** **Atenção!** O Safari nativo do iOS bloqueia conexões Web Bluetooth (BLE). Para conseguir conectar a sua **Pocket Master** ou controles sem fio no iPhone, você deve baixar e acessar o link através de um navegador especializado em BLE disponível na App Store, como o **Bluefy** ou o **WebBLE Browser**. Caso queira apenas usar via touch, você pode abrir no Safari, clicar em *Compartilhar* e selecionar *"Adicionar à Tela de Início"* para rodar o app em tela cheia (estilo WebApp).
+
+---
+
 ## 🎛️ Funcionalidades Principais
 
 ### 1. Modo Stompbox Board
@@ -48,14 +63,14 @@ Abaixo está o design final da interface com a cadeia de sinal superior expandid
 
 Este projeto é uma modificação visual e de mapeamento de hardware desenvolvida como um **fork** e versão customizada do software original:
 
-* **Repositório Base:** [suckyble/PocketEdit](https://github.com/suckyble/PocketEdit)
+* **Repositório Base Original:** [suckyble/PocketEdit](https://github.com/suckyble/PocketEdit)
 * **Créditos do Desenvolvedor:** Todos os direitos e créditos pelo desenvolvimento do núcleo reativo do web app, tratamento MIDI, processamento e mapeamento central pertencem ao criador original no repositório do **suckyble**.
-* **Modificação Stomp Mode:** Desenvolvido pela **DarkStar Sim Tech** (focada em engenharia de hardware simulador, eletrônica aplicada, modificações de periféricos de alta precisão e interfaces embarcadas).
+* **Modificação Stomp Mode:** Desenvolvido pela **DarkStar Sim Tech** (focada em engenharia de hardware simulador, eletrônica aplicada, modificações de periféricos de alta precisão e interfaces embutidas).
 
 ---
 
-## 📂 Como Aplicar no Repositório
+## 📂 Como Aplicar no Repositório (Desenvolvimento Local)
 
 1. Cole as novas regras de estilo no final da sua tag `<style>` no arquivo `index.html`.
 2. Adicione o Listener de coordenadas do botão no final do bloco `<script>`.
-3. Suba as alterações para o seu servidor local ou diretamente no seu repositório do GitHub.
+3. Suba as alterações para o seu servidor local ou diretamente no seu repositório do GitHub para atualizar a sua build do Pages.
