@@ -55,7 +55,7 @@ A área de parâmetros fica completamente oculta por padrão para dar espaço to
 
 Abaixo está o design final da interface com a cadeia de sinal superior expandida, o botão de edição embutido com LED indicador ativo e a matriz Stompbox cobrindo a base:
 
-![Pocket Edit Stomp Mode Interface](https://raw.githubusercontent.com/Frankwillians/PocketEditStompMode/main/image_683ce9.jpg)
+![Pocket Edit Stomp Mode Interface](/img/gui.png)
 
 ---
 
