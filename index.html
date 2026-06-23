@@ -17012,6 +17012,87 @@
 })();
 </script>
 
+<style>
+/* ===== MOBILE FIX - TOPBAR DO POCKET DUAL CONTROL ENGINE ===== */
+@media (max-width: 768px) {
 
+  /* container principal do engine */
+  #pocket-dual-engine .pde-top {
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
+    grid-template-areas:
+      "title actions"
+      "hint hint" !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 12px !important;
+  }
+
+  /* título */
+  #pocket-dual-engine .pde-title {
+    grid-area: title !important;
+    min-width: 0 !important;
+    font-size: 13px !important;
+    line-height: 1.2 !important;
+  }
+
+  /* área dos botões da direita */
+  #pocket-dual-engine .pde-top-actions,
+  #pocket-dual-engine .pde-mode-actions,
+  #pocket-dual-engine .pde-actions {
+    grid-area: actions !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    gap: 6px !important;
+    flex-wrap: nowrap !important;
+  }
+
+  /* pill/aviso do meio */
+  #pocket-dual-engine .pde-hint {
+    grid-area: hint !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #pocket-dual-engine .pde-bank-pill {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    justify-content: center !important;
+    text-align: center !important;
+    white-space: normal !important;
+    line-height: 1.3 !important;
+    padding: 8px 12px !important;
+    border-radius: 14px !important;
+    font-size: 10px !important;
+    gap: 6px !important;
+  }
+
+  #pocket-dual-engine .pde-bank-pill strong {
+    display: inline-block !important;
+    margin-right: 4px !important;
+  }
+
+  #pocket-dual-engine .pde-bank-pill small {
+    display: inline !important;
+    font-size: 10px !important;
+    line-height: 1.3 !important;
+  }
+
+  /* botões de modo um pouco menores no celular */
+  #pocket-dual-engine .pde-top .pde-btn,
+  #pocket-dual-engine .pde-top button {
+    min-height: 34px !important;
+    padding: 0 10px !important;
+    font-size: 11px !important;
+    white-space: nowrap !important;
+  }
+}
+</style>
 </body>
 </html>
