@@ -1,631 +1,615 @@
-# Pocket Dual Control Engine
+# Pocket Edit Web Control Mode
 
-![UI Status](https://img.shields.io/badge/UI/UX-Custom%20Stage%20Rack-00fff5?style=for-the-badge)
-![Platform](https://img.shields.io/badge/Platform-Pocket%20Edit%20/%20WebMIDI%20/%20WebBluetooth-71b73c?style=for-the-badge)
-![Control Mode](https://img.shields.io/badge/Mode-Stomp%20%2B%20Preset%20Bank%20Engine-ffd000?style=for-the-badge)
-![Responsive](https://img.shields.io/badge/Mobile-iPhone%20%2F%20Android%20Optimized-blueviolet?style=for-the-badge)
+![UI Status](https://img.shields.io/badge/UI/UX-Custom%20Dual%20Control%20Rack-00fff5?style=for-the-badge)
+![Platform](https://img.shields.io/badge/Platform-Web%20/%20GitHub%20Pages-71b73c?style=for-the-badge)
+![Control Engine](https://img.shields.io/badge/Engine-Pocket%20Dual%20Control%20Mode-blueviolet?style=for-the-badge)
 
-Custom fork of **Pocket Edit** with a stage-oriented stompboard interface, physical controller mapping, preset bank control, short/long press actions, and mobile-friendly layout.
+> **PT-BR:** Modificação avançada de interface e controle para o **Pocket Edit** da **Sonicake Pocket Master**, com foco em uso prático no desktop e no celular, incluindo **Pocket Dual Control Engine**, **modo efeitos**, **modo banco**, **troca A/B**, **mapeamento por teclado/joystick** e **arraste da cadeia de sinal no mobile**.  
+> **EN:** Advanced interface and control mod for **Pocket Edit** for the **Sonicake Pocket Master**, focused on practical desktop and mobile use, including **Pocket Dual Control Engine**, **effects mode**, **bank mode**, **A/B switching**, **keyboard/joystick mapping**, and **mobile signal-chain drag support**.
 
 ---
 
-- [Português](#português)
+## Table of Contents / Sumário
+
+- [Português (PT-BR)](#português-pt-br)
+  - [Acesse online](#-acesse-online)
+  - [Visão geral](#-visão-geral)
+  - [Funcionalidades principais](#️-funcionalidades-principais)
+  - [Diferenças para o PocketEdit original](#-diferenças-para-o-pocketedit-original)
+  - [Controle por joystick / gamepad USB](#-controle-por-joystick--gamepad-usb)
+  - [Experiência mobile](#-experiência-mobile)
+  - [Demonstração do layout](#-demonstração-do-layout)
+  - [Melhorias implementadas nesta versão](#-melhorias-implementadas-nesta-versão)
+  - [Créditos e fork original](#-créditos-e-fork-original)
+  - [Observações importantes](#️-observações-importantes)
+  - [Roadmap sugerido](#️-roadmap-sugerido)
 - [English](#english)
+  - [Access online](#-access-online)
+  - [Overview](#-overview)
+  - [Main features](#️-main-features)
+  - [What’s different from original PocketEdit](#-whats-different-from-original-pocketedit)
+  - [USB joystick / gamepad control](#-usb-joystick--gamepad-control)
+  - [Mobile experience](#-mobile-experience)
+  - [Layout preview](#-layout-preview)
+  - [Improvements included in this version](#-improvements-included-in-this-version)
+  - [Credits and original fork](#-credits-and-original-fork)
+  - [Important notes](#️-important-notes)
+  - [Suggested roadmap](#️-suggested-roadmap)
 
 ---
 
-# Português
+# Português (PT-BR)
 
-## Visão geral
+## 🌐 Acesse online
 
-**Pocket Dual Control Engine** é um fork customizado do **Pocket Edit** focado em transformar a interface original em uma central de controle mais prática para uso ao vivo, bancada, setups headless e controladores físicos.
+🚀 **[Abrir Pocket Edit Web Control Mode](https://frankwillians.github.io/PocketEditStompMode/)**
 
-O projeto adiciona uma camada extra de controle com:
+### 📱 Uso em smartphones
 
-- modo efeitos;
-- modo banco;
-- mapeamento de botões físicos;
-- suporte a teclado, joystick USB e controladores HID/Bluetooth;
-- clique curto e clique longo;
-- troca de presets via comando SysEx;
-- Bank Shift A/B;
-- Mode Toggle mapeável;
-- Stompboard visual;
-- layout responsivo para desktop e mobile.
+- **Android:** recomenda-se usar **Google Chrome** ou **Samsung Internet**.
+- **iPhone (iOS):** funciona para uso touch, edição e navegação visual. Para usar como web app, abra no Safari e selecione **Compartilhar → Adicionar à Tela de Início**.
 
 ---
 
-## Acesso online
+## 🎛️ Visão geral
 
-Use diretamente pelo navegador:
+O **Pocket Edit Web Control Mode** é uma versão expandida do Pocket Edit original, reorganizada para funcionar não apenas como editor de presets, mas também como uma interface de controle mais prática para palco, bancada e uso mobile.
 
-🚀 **[Abrir Pocket Dual Control Engine](https://frankwillians.github.io/PocketEditStompMode/)**
+A principal adição desta versão é o **Pocket Dual Control Engine**, uma camada de controle que permite operar a interface usando **dois grupos de botões**, com suporte a:
 
----
+- **clique curto**
+- **clique longo**
+- **modo efeitos**
+- **modo banco**
+- **troca de banco A/B**
+- **mapeamento por teclado**
+- **mapeamento por joystick / gamepad USB**
+- **persistência de configurações via navegador**
 
-## Compatibilidade
-
-### Desktop
-
-Funciona em navegadores modernos com suporte a:
-
-- WebMIDI;
-- WebBluetooth;
-- USB/HID;
-- teclado;
-- joystick/gamepad.
-
-### Android
-
-Recomendado usar:
-
-- Google Chrome;
-- Samsung Internet.
-
-Compatível com:
-
-- controladores USB via OTG;
-- joysticks;
-- footswitches Bluetooth;
-- placas encoder;
-- controladores HID.
-
-### iPhone / iOS
-
-O Safari possui limitações com WebBluetooth. Para BLE, recomenda-se usar:
-
-- Bluefy;
-- WebBLE Browser.
-
-Para uso apenas como interface touch, é possível abrir no Safari e instalar como web app:
-
-**Compartilhar → Adicionar à Tela de Início**
+Além disso, a interface também recebeu melhorias visuais e de usabilidade, incluindo um **stompboard visual**, **drag da cadeia de sinal no mobile** e **exportação de presets em JSON**.
 
 ---
 
-## Principais recursos
+## ⚙️ Funcionalidades principais
 
-## 1. Dual Control Engine
+### 1. Pocket Dual Control Engine
 
-O **Dual Control Engine** adiciona uma camada de operação sobre o Pocket Edit, permitindo alternar entre dois modos:
+O **Pocket Dual Control Engine** é a camada de controle adicional embutida nesta versão do projeto.
 
-- **Modo Efeitos**
-- **Modo Banco**
+Ele trabalha com **dois grupos de botões**, permitindo controlar tanto efeitos individuais quanto presets completos, sem depender apenas da navegação tradicional do Pocket Edit original.
 
-Essa camada não substitui o núcleo original do Pocket Edit. Ela apenas adiciona novas rotas de controle físico e visual.
+Cada grupo de botão suporta:
 
----
+- **Clique curto**
+- **Clique longo**
+- comportamento diferente dependendo do modo selecionado
 
-## 2. Modo Efeitos
-
-No **Modo Efeitos**, os dois botões principais funcionam como controle stomp:
-
-### Botão 1
-- clique curto → FX1
-- clique longo → FX2
-
-### Botão 2
-- clique curto → DRV
-- clique longo → RVB
-
-Esse modo é ideal para ligar/desligar efeitos durante a execução, sem trocar de preset.
+Também existe um **Mode Toggle** mapeável, usado para alternar entre os modos de operação.
 
 ---
 
-## 3. Modo Banco
+### 2. Modo Efeitos
 
-No **Modo Banco**, os mesmos botões deixam de controlar efeitos e passam a chamar presets completos.
+No **Modo Efeitos**, os botões se comportam como footswitches para acionar efeitos.
 
-Cada botão possui duas ações:
+Cada grupo possui duas ações:
 
-### Botão 1
-- clique curto → preset configurável
-- clique longo → preset configurável
+- **Botão 1 curto** → primeira função do grupo 1
+- **Botão 1 longo** → segunda função do grupo 1
+- **Botão 2 curto** → primeira função do grupo 2
+- **Botão 2 longo** → segunda função do grupo 2
 
-### Botão 2
-- clique curto → preset configurável
-- clique longo → preset configurável
+Exemplo de uso:
+
+- Botão 1 curto → **FX1**
+- Botão 1 longo → **FX2**
+- Botão 2 curto → **DRV**
+- Botão 2 longo → **RVB**
+
+Isso permite operar múltiplas funções usando apenas dois botões físicos.
 
 ---
 
-## 4. Bank Shift A/B
+### 3. Modo Banco
 
-O sistema possui um botão mapeável chamado **Bank Shift**.
+No **Modo Banco**, os mesmos dois grupos deixam de controlar stomp individual e passam a chamar presets.
 
-Ele alterna entre:
+Cada banco possui quatro ações configuráveis:
+
+- **Botão 1 curto**
+- **Botão 1 longo**
+- **Botão 2 curto**
+- **Botão 2 longo**
+
+Essa estrutura foi pensada para permitir navegação rápida entre presets sem precisar tocar diretamente na lista da interface.
+
+---
+
+### 4. Banco A/B
+
+O sistema possui **dois bancos independentes de presets**:
 
 - **Banco A**
 - **Banco B**
 
-Cada banco possui 4 presets configuráveis.
+A troca entre eles é feita pressionando:
 
-### Banco A
-- Botão 1 curto
-- Botão 1 longo
-- Botão 2 curto
-- Botão 2 longo
+```txt
+Botão 1 + Botão 2 juntos
+```
 
-### Banco B
-- Botão 1 curto
-- Botão 1 longo
-- Botão 2 curto
-- Botão 2 longo
-
-Com isso, usando apenas dois botões principais + um Bank Shift, é possível acessar até **8 presets diretos**.
+O banco ativo é exibido diretamente na barra superior do **Pocket Dual Control Engine**, deixando a navegação mais clara durante o uso.
 
 ---
 
-## 5. Mode Toggle mapeável
+### 5. Mapeamento híbrido
 
-O sistema também possui um botão mapeável de **Mode Toggle**.
+O sistema de mapeamento aceita diferentes formas de controle físico:
 
-Esse botão alterna entre:
+- **teclado**
+- **joystick / gamepad USB**
+- **placas encoder**
+- **footswitches que se comportem como teclado ou gamepad**
+- **controladores externos reconhecidos pelo navegador**
 
+As associações ficam salvas no navegador via `localStorage`, então o mapeamento permanece salvo entre sessões.
+
+---
+
+### 6. Stompboard visual
+
+A interface mantém uma pedaleira visual com módulos como:
+
+- **NR**
+- **FX1**
+- **DRV**
+- **FX2**
+- **DLY**
+- **RVB**
+- **PRESET -**
+- **PRESET +**
+
+Cada stomp possui botão visual, LED e integração com a lógica do engine.
+
+---
+
+### 7. Drag da cadeia de sinal no mobile
+
+A cadeia de sinal pode ser reorganizada diretamente no celular.
+
+Recursos adicionados:
+
+- arraste por toque
+- área de toque ampliada
+- reordenação dos módulos
+- auto-scroll lateral ao arrastar perto das bordas
+- destaque visual do alvo durante o movimento
+
+Na prática, isso torna a edição no smartphone muito mais confortável.
+
+---
+
+### 8. Exportação de presets
+
+A interface permite exportar o preset atual em **JSON legível**, incluindo:
+
+- nome do preset
+- volume
+- modo do amp
+- módulos ativos
+- efeitos selecionados
+- parâmetros de cada módulo
+- ordem da cadeia de sinal
+
+Esse recurso é útil para backup, compartilhamento e documentação de presets.
+
+---
+
+## 🔍 Diferenças para o PocketEdit original
+
+Esta versão não altera apenas o visual — ela adiciona uma nova camada de operação ao projeto original.
+
+### O que foi adicionado nesta modificação
+
+- **Pocket Dual Control Engine**
+- sistema de **clique curto / clique longo**
+- **Modo Efeitos** para controle rápido de stomps
+- **Modo Banco** para navegação de presets
+- **Banco A/B** com troca por combinação de botões
+- **Mode Toggle** mapeável
+- mapeamento por **teclado**
+- mapeamento por **joystick / gamepad USB**
+- persistência de mapeamento e preferências via `localStorage`
+- **stompboard visual** integrado à interface
+- **drag da cadeia de sinal no mobile**
+- **auto-scroll** durante arraste em telas touch
+- **exportação de presets em JSON**
+
+### O que continua vindo do PocketEdit original
+
+- estrutura base do editor
+- comunicação principal com a Pocket Master
+- manipulação central de presets
+- lógica principal dos módulos e parâmetros
+- fluxo original de edição do projeto base
+
+---
+
+## 🎮 Controle por joystick / gamepad USB
+
+O projeto usa a **Gamepad API** do navegador para reconhecer controladores compatíveis.
+
+Fluxo básico:
+
+1. Conecte o controle ao computador.
+2. Abra a página do projeto.
+3. Entre no modo de aprendizado da função desejada.
+4. Pressione o botão físico correspondente.
+5. O navegador salva automaticamente a associação.
+
+---
+
+## 📱 Experiência mobile
+
+A versão web recebeu ajustes específicos para telas pequenas:
+
+- barra superior mais compacta
+- rack responsivo
+- botões otimizados para toque
+- drag da cadeia de sinal
+- auto-scroll horizontal
+- painel de edição mais acessível
+
+O objetivo é fazer a interface funcionar bem tanto como editor quanto como uma central de controle touch para a Pocket Master.
+
+---
+
+## 📸 Demonstração do layout
+
+![Pocket Edit Web Control Mode Interface](/img/gui.png)
+
+> Você pode substituir essa imagem por um screenshot atualizado da versão com o **Pocket Dual Control Engine** já ativo, mostrando o **modo banco**, o **banco A/B** e a barra superior final.
+
+---
+
+## 🧠 Melhorias implementadas nesta versão
+
+- **Pocket Dual Control Engine**
 - **Modo Efeitos**
 - **Modo Banco**
-
-Assim, é possível trocar o comportamento dos botões físicos sem tocar na tela.
-
----
-
-## 6. Clique curto e clique longo
-
-O motor de entrada diferencia:
-
-- toque rápido;
-- toque segurado por aproximadamente 500ms.
-
-Isso permite duas funções por botão físico, dobrando a quantidade de comandos disponíveis sem exigir mais hardware.
-
----
-
-## 7. Envio de presets via rota manual do Pocket Edit
-
-A troca de presets no modo banco usa a rota manual do Pocket Edit.
-
-O sistema:
-
-1. identifica o preset configurado;
-2. busca o comando SysEx correspondente;
-3. injeta o comando no campo manual;
-4. aciona o botão de envio do Pocket Edit;
-5. aguarda resposta da pedaleira;
-6. sincroniza a interface visual;
-7. atualiza o preset selecionado na lista.
-
-Isso permite que o preset mude no hardware e também na tela.
+- **Banco A/B**
+- troca de banco com **Botão 1 + Botão 2**
+- **clique curto / clique longo**
+- **Mode Toggle mapeável**
+- mapeamento por **teclado**
+- mapeamento por **joystick / gamepad USB**
+- persistência via **localStorage**
+- **stompboard visual**
+- **PRESET +** e **PRESET -**
+- drag da cadeia de sinal no mobile
+- auto-scroll durante arraste
+- exportação de presets em JSON
+- layout responsivo para desktop e mobile
 
 ---
 
-## 8. Stompboard visual
+## 🤝 Créditos e fork original
 
-A interface adiciona uma área visual de pedaleira com:
+Este projeto é uma modificação visual, estrutural e de controle desenvolvida como um **fork customizado** do software original:
 
-- NR;
-- FX1;
-- DRV;
-- FX2;
-- DLY;
-- RVB;
-- PRESET -;
-- PRESET +.
+- **Repositório base original:** [suckyble/PocketEdit](https://github.com/suckyble/PocketEdit)
 
-Cada pedal possui:
+Todo o núcleo do editor, comunicação base, estrutura principal de edição, manipulação de presets e integração central pertencem ao projeto original.
 
-- footswitch visual;
-- LED;
-- botão de mapeamento;
-- label mostrando tecla ou botão atribuído.
+Esta versão adiciona uma camada extra de interface, controle físico, usabilidade mobile e fluxo de operação ao vivo sobre o Pocket Edit original.
 
 ---
 
-## 9. Navegação PRESET + / PRESET -
+## ⚠️ Observações importantes
 
-Além dos bancos diretos, a interface mantém botões de navegação sequencial:
-
-- PRESET -
-- PRESET +
-
-Eles permitem navegar pela lista de presets da forma tradicional.
-
----
-
-## 10. Mapeamento físico
-
-O sistema permite mapear comandos para:
-
-- teclado;
-- joystick USB;
-- gamepad;
-- controlador HID;
-- footswitch Bluetooth;
-- placas encoder;
-- projetos com Arduino, STM32 ou Zero Delay.
-
-Os mapeamentos são salvos no navegador via `localStorage`.
+- Esta documentação descreve somente a **versão Web**.
+- O uso de joystick/gamepad depende da compatibilidade do navegador.
+- Controles físicos funcionam melhor com a aba ativa.
+- BLE, USB e permissões podem variar conforme navegador, sistema operacional e dispositivo.
+- Evite mapear o mesmo botão físico em várias funções ao mesmo tempo para prevenir conflitos.
 
 ---
 
-## 11. Observação sobre conflitos de mapeamento
+## 🛠️ Roadmap sugerido
 
-O projeto possui duas camadas de mapeamento:
-
-1. **Stompboard normal**
-2. **Dual Control Engine**
-
-Por limitação da integração atual, é recomendado **não usar o mesmo botão físico nas duas camadas ao mesmo tempo**.
-
-Exemplo a evitar:
-
-- mapear `Key A` no Stompboard;
-- e também mapear `Key A` no Botão 1 do Dual Control Engine.
-
-Isso pode causar acionamento duplicado ou conflito de comportamento.
-
-### Recomendação
-
-Use botões diferentes para cada função.
-
-Exemplo seguro:
-
-- Botão 1 do Dual Engine → `Key A`
-- Botão 2 do Dual Engine → `Key D`
-- Bank Shift → `Key C`
-- Mode Toggle → `Key M`
-- Stompboard normal → outras teclas ou botões
-
----
-
-## 12. Layout responsivo
-
-A interface foi adaptada para telas menores, incluindo smartphones como iPhone 11 e Android.
-
-Melhorias mobile:
-
-- layout compacto;
-- botões maiores para toque;
-- reorganização da cadeia de sinal;
-- redução de overflow horizontal;
-- suporte a WebApp em tela cheia;
-- Stompboard reorganizado para uso touch.
-
----
-
-## 13. Uso recomendado
-
-Este fork é indicado para:
-
-- uso ao vivo;
-- setups compactos;
-- rigs headless;
-- testes de bancada;
-- controladores personalizados;
-- footswitches USB/Bluetooth;
-- operação via celular ou tablet.
-
----
-
-## Créditos
-
-Este projeto é um fork customizado do **Pocket Edit**.
-
-### Repositório original
-
-- **Pocket Edit:** [suckyble/PocketEdit](https://github.com/suckyble/PocketEdit)
-
-Todos os créditos pelo núcleo original do editor, comunicação MIDI, sincronização de presets, gerenciamento de módulos e lógica base pertencem ao autor original do Pocket Edit.
-
----
-
-## Screenshot
-
-![Pocket Dual Control Engine Interface](/img/gui.png)
+- importação de presets JSON
+- perfis salvos de mapeamento
+- modo setlist
+- suporte a mais de dois bancos
+- indicador visual de clique longo
+- export/import das preferências do engine
+- labels customizados para presets dos bancos
 
 ---
 
 # English
 
-## Overview
+## 🌐 Access online
 
-**Pocket Dual Control Engine** is a custom fork of **Pocket Edit** focused on turning the original editor into a more practical control surface for live use, bench testing, headless setups, and physical controllers.
+🚀 **[Open Pocket Edit Web Control Mode](https://frankwillians.github.io/PocketEditStompMode/)**
 
-This project adds an extra control layer with:
+### 📱 Smartphone usage
 
-- effects mode;
-- preset bank mode;
-- physical button mapping;
-- keyboard, USB joystick and HID/Bluetooth controller support;
-- short press and long press actions;
-- SysEx preset switching;
-- Bank Shift A/B;
-- mappable Mode Toggle;
-- visual stompboard;
-- responsive desktop and mobile layout.
+- **Android:** **Google Chrome** or **Samsung Internet** is recommended.
+- **iPhone (iOS):** works for touch use, editing and visual navigation. To use it as a web app, open it in Safari and choose **Share → Add to Home Screen**.
 
 ---
 
-## Online access
+## 🎛️ Overview
 
-Use it directly in your browser:
+**Pocket Edit Web Control Mode** is an expanded version of the original Pocket Edit, redesigned to work not only as a preset editor but also as a more practical control interface for live use, bench setups and mobile editing.
 
-🚀 **[Open Pocket Dual Control Engine](https://frankwillians.github.io/PocketEditStompMode/)**
+The main addition in this version is the **Pocket Dual Control Engine**, a control layer that allows the interface to be operated using **two button groups**, with support for:
 
----
+- **short press**
+- **long press**
+- **effects mode**
+- **bank mode**
+- **A/B bank switching**
+- **keyboard mapping**
+- **USB joystick / gamepad mapping**
+- **browser-based persistent settings**
 
-## Compatibility
-
-### Desktop
-
-Works in modern browsers with support for:
-
-- WebMIDI;
-- WebBluetooth;
-- USB/HID;
-- keyboard;
-- joystick/gamepad.
-
-### Android
-
-Recommended browsers:
-
-- Google Chrome;
-- Samsung Internet.
-
-Compatible with:
-
-- USB controllers through OTG;
-- joysticks;
-- Bluetooth footswitches;
-- encoder boards;
-- HID controllers.
-
-### iPhone / iOS
-
-Safari has WebBluetooth limitations. For BLE support, recommended browsers include:
-
-- Bluefy;
-- WebBLE Browser.
-
-For touch-only use, Safari can still be used as a web app:
-
-**Share → Add to Home Screen**
+On top of that, the interface also includes usability and visual improvements such as a **visual stompboard**, **mobile signal-chain drag support**, and **JSON preset export**.
 
 ---
 
-## Main features
+## ⚙️ Main features
 
-## 1. Dual Control Engine
+### 1. Pocket Dual Control Engine
 
-The **Dual Control Engine** adds a new control layer on top of Pocket Edit, allowing the user to switch between two modes:
+The **Pocket Dual Control Engine** is the additional control layer built into this version of the project.
 
-- **Effects Mode**
-- **Bank Mode**
+It works with **two button groups**, allowing the user to control both individual effects and full presets without relying only on the original Pocket Edit navigation flow.
 
-This layer does not replace Pocket Edit’s original core. It only adds new physical and visual control routes.
+Each button group supports:
 
----
+- **short press**
+- **long press**
+- different behavior depending on the selected mode
 
-## 2. Effects Mode
-
-In **Effects Mode**, the two main physical buttons work as stomp controls:
-
-### Button 1
-- short press → FX1
-- long press → FX2
-
-### Button 2
-- short press → DRV
-- long press → RVB
-
-This mode is useful for toggling effects without changing presets.
+There is also a mappable **Mode Toggle** used to switch between operating modes.
 
 ---
 
-## 3. Bank Mode
+### 2. Effects Mode
 
-In **Bank Mode**, the same buttons trigger full presets instead of toggling effects.
+In **Effects Mode**, the buttons behave like footswitches for effect control.
 
-Each button has two actions:
+Each group has two actions:
 
-### Button 1
-- short press → configurable preset
-- long press → configurable preset
+- **Button 1 short press** → first Group 1 function
+- **Button 1 long press** → second Group 1 function
+- **Button 2 short press** → first Group 2 function
+- **Button 2 long press** → second Group 2 function
 
-### Button 2
-- short press → configurable preset
-- long press → configurable preset
+Example setup:
+
+- Button 1 short → **FX1**
+- Button 1 long → **FX2**
+- Button 2 short → **DRV**
+- Button 2 long → **RVB**
+
+This makes it possible to control multiple functions using only two physical buttons.
 
 ---
 
-## 4. Bank Shift A/B
+### 3. Bank Mode
 
-The system includes a mappable **Bank Shift** button.
+In **Bank Mode**, the same two button groups stop acting as stomp controls and start triggering presets.
 
-It switches between:
+Each bank has four configurable actions:
+
+- **Button 1 short press**
+- **Button 1 long press**
+- **Button 2 short press**
+- **Button 2 long press**
+
+This structure was designed to allow quick preset navigation without having to interact directly with the preset list.
+
+---
+
+### 4. A/B Banks
+
+The system includes **two independent preset banks**:
 
 - **Bank A**
 - **Bank B**
 
-Each bank contains 4 configurable presets.
+Switching between them is done by pressing:
 
-### Bank A
-- Button 1 short
-- Button 1 long
-- Button 2 short
-- Button 2 long
+```txt
+Button 1 + Button 2 together
+```
 
-### Bank B
-- Button 1 short
-- Button 1 long
-- Button 2 short
-- Button 2 long
-
-With only two main buttons plus one Bank Shift button, the user can access up to **8 direct presets**.
+The active bank is shown directly in the **Pocket Dual Control Engine** top bar for clearer navigation during live use.
 
 ---
 
-## 5. Mappable Mode Toggle
+### 5. Hybrid mapping
 
-The system also includes a mappable **Mode Toggle** button.
+The mapping system accepts multiple physical control sources:
 
-This button switches between:
+- **keyboard**
+- **USB joystick / gamepad**
+- **encoder boards**
+- **footswitches that behave as keyboard or gamepad devices**
+- **external controllers recognized by the browser**
 
+Mappings are stored in the browser via `localStorage`, so they persist across sessions.
+
+---
+
+### 6. Visual stompboard
+
+The interface keeps a visual pedalboard with modules such as:
+
+- **NR**
+- **FX1**
+- **DRV**
+- **FX2**
+- **DLY**
+- **RVB**
+- **PRESET -**
+- **PRESET +**
+
+Each stomp includes a visual button, LED indicator and engine integration.
+
+---
+
+### 7. Mobile signal-chain drag
+
+The signal chain can be reorganized directly on mobile devices.
+
+Added features include:
+
+- touch drag support
+- larger touch interaction area
+- module reordering
+- side auto-scroll when dragging near the edges
+- visual drop target highlighting
+
+In practice, this makes smartphone editing much more comfortable.
+
+---
+
+### 8. Preset export
+
+The interface allows exporting the current preset as **readable JSON**, including:
+
+- preset name
+- volume
+- amp mode
+- active modules
+- selected effects
+- module parameters
+- signal-chain order
+
+This is useful for backups, sharing and documenting presets.
+
+---
+
+## 🔍 What’s different from original PocketEdit
+
+This version does more than just change the visuals — it adds a new control layer on top of the original project.
+
+### Added in this mod
+
+- **Pocket Dual Control Engine**
+- **short press / long press** button logic
+- **Effects Mode** for quick stomp control
+- **Bank Mode** for preset navigation
+- **A/B Banks** with combo switching
+- mappable **Mode Toggle**
+- **keyboard mapping**
+- **USB joystick / gamepad mapping**
+- mapping and preference persistence via `localStorage`
+- integrated **visual stompboard**
+- **mobile signal-chain drag**
+- **auto-scroll** during drag on touch screens
+- **JSON preset export**
+
+### Still provided by the original PocketEdit base
+
+- the main editor structure
+- primary Pocket Master communication logic
+- central preset handling
+- core module and parameter logic
+- the original editing workflow of the base project
+
+---
+
+## 🎮 USB joystick / gamepad control
+
+The project uses the browser’s **Gamepad API** to recognize compatible controllers.
+
+Basic flow:
+
+1. Connect the controller to the computer.
+2. Open the project page.
+3. Enter learn mode for the desired function.
+4. Press the physical button you want to assign.
+5. The browser stores the mapping automatically.
+
+---
+
+## 📱 Mobile experience
+
+The web version includes specific adjustments for smaller screens:
+
+- more compact top bar
+- responsive rack
+- touch-friendly buttons
+- signal-chain drag support
+- horizontal auto-scroll
+- more accessible editing panel
+
+The goal is to make the interface work well both as an editor and as a touch-based control hub for the Pocket Master.
+
+---
+
+## 📸 Layout preview
+
+![Pocket Edit Web Control Mode Interface](/img/gui.png)
+
+> You can replace this image with an updated screenshot showing the **Pocket Dual Control Engine** active, including **Bank Mode**, **A/B bank display**, and the final top bar layout.
+
+---
+
+## 🧠 Improvements included in this version
+
+- **Pocket Dual Control Engine**
 - **Effects Mode**
 - **Bank Mode**
-
-This allows changing the behavior of the physical buttons without touching the screen.
-
----
-
-## 6. Short press and long press
-
-The input engine distinguishes between:
-
-- quick tap;
-- press held for about 500ms.
-
-This allows two actions per physical button, doubling the number of commands without requiring more hardware.
-
----
-
-## 7. Preset switching through Pocket Edit’s manual route
-
-Preset switching in Bank Mode uses Pocket Edit’s manual command route.
-
-The system:
-
-1. identifies the configured preset;
-2. finds the corresponding SysEx command;
-3. injects it into the manual command input;
-4. triggers Pocket Edit’s send button;
-5. waits for the pedal response;
-6. syncs the visual interface;
-7. updates the selected preset in the list.
-
-This allows the preset to change both on the hardware and on the screen.
+- **A/B Banks**
+- bank switching with **Button 1 + Button 2**
+- **short press / long press**
+- mappable **Mode Toggle**
+- **keyboard mapping**
+- **USB joystick / gamepad mapping**
+- **localStorage persistence**
+- **visual stompboard**
+- **PRESET +** and **PRESET -**
+- mobile signal-chain drag support
+- auto-scroll during drag
+- JSON preset export
+- responsive layout for desktop and mobile
 
 ---
 
-## 8. Visual stompboard
+## 🤝 Credits and original fork
 
-The interface adds a visual pedalboard area with:
+This project is a custom visual, structural and control-oriented modification built on top of the original software:
 
-- NR;
-- FX1;
-- DRV;
-- FX2;
-- DLY;
-- RVB;
-- PRESET -;
-- PRESET +.
+- **Original base repository:** [suckyble/PocketEdit](https://github.com/suckyble/PocketEdit)
 
-Each pedal includes:
+All editor core logic, base communication, main editing structure, preset handling and central integration belong to the original project.
 
-- visual footswitch;
-- LED;
-- mapping button;
-- label showing the assigned key or button.
+This version adds an extra layer of interface, physical control support, mobile usability and live-oriented workflow on top of the original Pocket Edit.
 
 ---
 
-## 9. PRESET + / PRESET - navigation
+## ⚠️ Important notes
 
-In addition to direct preset banks, the interface keeps sequential preset navigation through:
-
-- PRESET -
-- PRESET +
-
-This allows browsing presets in the traditional way.
-
----
-
-## 10. Physical mapping
-
-The system can map commands to:
-
-- keyboard;
-- USB joystick;
-- gamepad;
-- HID controller;
-- Bluetooth footswitch;
-- encoder boards;
-- Arduino, STM32 or Zero Delay projects.
-
-Mappings are stored in the browser through `localStorage`.
+- This documentation describes the **Web version only**.
+- Joystick/gamepad support depends on browser compatibility.
+- Physical controls work best with the browser tab active.
+- BLE, USB and permission behavior may vary depending on browser, operating system and device.
+- Avoid mapping the same physical button to multiple functions at the same time to prevent conflicts.
 
 ---
 
-## 11. Mapping conflict note
+## 🛠️ Suggested roadmap
 
-The project currently has two mapping layers:
-
-1. **Normal Stompboard**
-2. **Dual Control Engine**
-
-Because of the current integration limits, it is recommended **not to use the same physical button in both layers at the same time**.
-
-Example to avoid:
-
-- mapping `Key A` to the Stompboard;
-- and also mapping `Key A` to Button 1 in the Dual Control Engine.
-
-This can cause duplicate triggers or conflicting behavior.
-
-### Recommendation
-
-Use different buttons for each function.
-
-Safe example:
-
-- Dual Engine Button 1 → `Key A`
-- Dual Engine Button 2 → `Key D`
-- Bank Shift → `Key C`
-- Mode Toggle → `Key M`
-- Normal Stompboard → other keys or buttons
-
----
-
-## 12. Responsive layout
-
-The interface was adapted for smaller screens, including devices such as iPhone 11 and Android phones.
-
-Mobile improvements:
-
-- compact layout;
-- larger touch-friendly buttons;
-- signal chain reorganization;
-- reduced horizontal overflow;
-- full-screen WebApp support;
-- touch-friendly Stompboard layout.
-
----
-
-## 13. Recommended use
-
-This fork is recommended for:
-
-- live performance;
-- compact setups;
-- headless rigs;
-- bench testing;
-- custom controllers;
-- USB/Bluetooth footswitches;
-- phone or tablet operation.
-
----
-
-## Credits
-
-This project is a custom fork of **Pocket Edit**.
-
-### Original repository
-
-- **Pocket Edit:** [suckyble/PocketEdit](https://github.com/suckyble/PocketEdit)
-
-All credits for the original editor core, MIDI communication, preset synchronization, module management, and base logic belong to the original Pocket Edit author.
-
----
-
-## Screenshot
-
-![Pocket Dual Control Engine Interface](/img/gui.png)
+- JSON preset import
+- saved hardware mapping profiles
+- setlist mode
+- support for more than two banks
+- visual long-press indicator
+- import/export for engine preferences
+- custom labels for bank presets
