@@ -1,0 +1,9 @@
+{
+  "name": "pocketedit-professional-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PocketEdit professional web build with modular CSS/JS structure.",
+  "scripts": {
+    "start": "npx serve ."
+  }
+}

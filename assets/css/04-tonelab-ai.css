@@ -1,0 +1,297 @@
+/* ==========================================================
+   ToneLab AI - Professional Web Module
+   ========================================================== */
+
+#tonelab-ai {
+  background: linear-gradient(180deg, #11141b, #07090d);
+  border: 1px solid #252c3a;
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 14px;
+  display: grid;
+  gap: 10px;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 12px 28px rgba(0,0,0,.38);
+}
+
+#tonelab-ai .tl-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+#tonelab-ai .tl-title {
+  color: #cbd5e1;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+#tonelab-ai .tl-small {
+  font-size: 10px;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+#tonelab-ai .tl-btn {
+  border: 1px solid #303a4f;
+  background: #121722;
+  color: #00fff5;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 10px;
+  font-weight: 900;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: border-color .15s ease, box-shadow .15s ease, transform .05s ease;
+}
+
+#tonelab-ai .tl-btn:hover {
+  border-color: #00fff5;
+  box-shadow: 0 0 12px rgba(0,255,245,.18);
+}
+
+#tonelab-ai .tl-btn:active {
+  transform: translateY(1px);
+}
+
+#tonelab-ai .tl-body {
+  display: none;
+  gap: 8px;
+}
+
+#tonelab-ai.open .tl-body {
+  display: grid;
+}
+
+#tonelab-ai .tl-input,
+#tonelab-ai .tl-select {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #303a4f;
+  background: #05070b;
+  color: #e5e7eb;
+  padding: 9px;
+  font-size: 12px;
+  outline: none;
+}
+
+#tonelab-ai .tl-input:focus,
+#tonelab-ai .tl-select:focus {
+  border-color: #00fff5;
+}
+
+#tonelab-ai .tl-input {
+  min-height: 88px;
+  resize: vertical;
+}
+
+#tonelab-ai .tl-input.tl-single {
+  min-height: auto;
+}
+
+#tonelab-ai .tl-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+#tonelab-ai .tl-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+#tonelab-ai .tl-output {
+  background: #05070b;
+  border: 1px solid #252c3a;
+  border-radius: 6px;
+  padding: 10px;
+  color: #94a3b8;
+  font-size: 11px;
+  white-space: pre-wrap;
+  max-height: 280px;
+  overflow: auto;
+}
+
+#tonelab-ai .tl-progress-wrap {
+  width: 100%;
+  height: 8px;
+  background: #05070b;
+  border: 1px solid #252c3a;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+#tonelab-ai #tl-progress-bar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #00fff5, #71b73c);
+  transition: width .25s ease;
+}
+
+@media (max-width: 767px) {
+  #tonelab-ai .tl-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #tonelab-ai .tl-top {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #tonelab-ai .tl-btn {
+    width: 100%;
+  }
+}
+
+#tonelab-ai .tl-hidden { display: none !important; }
+
+#tonelab-ai .tl-checkline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #8b98ad;
+  font-size: 11px;
+  background: #070a10;
+  border: 1px solid #252c3a;
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+#tonelab-ai .tl-checkline input {
+  accent-color: #00fff5;
+}
+
+
+#tonelab-ai .tl-report {
+  background: #071012;
+  border: 1px solid rgba(0, 255, 245, .22);
+  border-radius: 8px;
+  padding: 12px;
+  color: #cbd5e1;
+  font-size: 11px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  max-height: 360px;
+  overflow: auto;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+}
+
+
+#tonelab-ai .tl-variants {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+#tonelab-ai .tl-variant-card {
+  text-align: left;
+  background: #070a10;
+  border: 1px solid #252c3a;
+  border-radius: 8px;
+  color: #94a3b8;
+  padding: 10px;
+  cursor: pointer;
+  display: grid;
+  gap: 6px;
+  min-height: 124px;
+}
+
+#tonelab-ai .tl-variant-card:hover,
+#tonelab-ai .tl-variant-card.active {
+  border-color: #00fff5;
+  box-shadow: 0 0 14px rgba(0,255,245,.14);
+}
+
+#tonelab-ai .tl-variant-card.active {
+  background: linear-gradient(180deg, rgba(0,255,245,.08), #070a10);
+}
+
+#tonelab-ai .tl-variant-title {
+  color: #e5e7eb;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+}
+
+#tonelab-ai .tl-variant-body {
+  white-space: pre-wrap;
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+@media (max-width: 767px) {
+  #tonelab-ai .tl-variants {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* HAL-style generation status */
+#tonelab-ai .tl-hal {
+  position: relative;
+  min-height: 92px;
+  border: 1px solid rgba(0,255,245,.18);
+  background: radial-gradient(circle at 50% 44%, rgba(120,0,0,.35), transparent 34%), linear-gradient(180deg,#07090d,#030406);
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04), 0 10px 24px rgba(0,0,0,.32);
+}
+#tonelab-ai .tl-hal-eye {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0 8%, #ffb1a4 12%, #ff2a1a 30%, #8b0000 58%, #130000 100%);
+  box-shadow: 0 0 18px rgba(255,30,20,.45), inset 0 0 10px rgba(255,255,255,.32);
+  z-index: 2;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+#tonelab-ai .tl-hal-rings {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,255,245,.11);
+  box-shadow: 0 0 28px rgba(0,255,245,.08), inset 0 0 26px rgba(0,255,245,.05);
+}
+#tonelab-ai .tl-hal-text {
+  position: absolute;
+  bottom: 8px;
+  color: #8b98ad;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+#tonelab-ai .tl-hal.active .tl-hal-eye {
+  transform: scale(1.09);
+  box-shadow: 0 0 28px rgba(255,30,20,.85), 0 0 60px rgba(255,30,20,.35), inset 0 0 10px rgba(255,255,255,.42);
+  animation: tlHalPulse 1.15s ease-in-out infinite;
+}
+#tonelab-ai .tl-hal.active .tl-hal-rings {
+  animation: tlHalScan 2.8s linear infinite;
+}
+@keyframes tlHalPulse { 0%,100%{filter:brightness(1)} 50%{filter:brightness(1.45)} }
+@keyframes tlHalScan { from{transform:rotate(0deg) scale(1)} to{transform:rotate(360deg) scale(1.05)} }
+
+#tonelab-ai .tl-file-label {
+  display: grid;
+  gap: 6px;
+  color: #8b98ad;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .4px;
+  text-transform: uppercase;
+}
+
+#tonelab-ai #tl-nam-list {
+  min-height: 72px;
+}
+
+#tonelab-ai .tl-output strong,
+#tonelab-ai .tl-report strong { color: #e5e7eb; }

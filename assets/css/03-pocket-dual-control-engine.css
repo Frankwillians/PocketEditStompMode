@@ -1,0 +1,279 @@
+/* ==========================================================
+   POCKET DUAL CONTROL ENGINE — FINAL UNIFIED VERSION
+   ========================================================== */
+
+#pocket-dual-engine {
+    background: linear-gradient(180deg, #11141b 0%, #07090d 100%);
+    border: 1px solid #252c3a;
+    border-radius: 8px;
+    padding: 14px;
+    margin-bottom: 16px;
+    display: grid;
+    gap: 12px;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 14px 32px rgba(0,0,0,.5);
+}
+
+#pocket-dual-engine * {
+    box-sizing: border-box;
+}
+
+.pde-top {
+    background: #080b10;
+    border: 1px solid #252c3a;
+    border-radius: 7px;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 12px;
+}
+
+.pde-title {
+    color: #cbd5e1;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.pde-status-pill {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+    background: #10151f;
+    border: 1px solid #2d3748;
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: .5px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 0 14px rgba(0,0,0,.35);
+}
+
+.pde-status-pill strong {
+    color: #00fff5;
+}
+
+.pde-status-pill.bank-b strong {
+    color: #ffd000;
+}
+
+.pde-status-pill small {
+    color: #8b98ad;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: none;
+}
+
+.pde-mode-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: #0c1017;
+    border: 1px solid #2b3547;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.pde-btn {
+    min-height: 28px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 900;
+    padding: 6px 12px;
+    border: 1px solid #303a4f;
+    background: #121722;
+    color: #00fff5;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+}
+
+.pde-btn:hover {
+    border-color: #00fff5;
+    background: #17202b;
+}
+
+.pde-btn.active-stomp {
+    background: #00fff5;
+    color: #001010;
+    border-color: #00fff5;
+    box-shadow: 0 0 12px rgba(0,255,245,.35);
+}
+
+.pde-btn.active-bank {
+    background: #ffd000;
+    color: #111;
+    border-color: #ffd000;
+    box-shadow: 0 0 12px rgba(255,208,0,.35);
+}
+
+.pde-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.pde-card,
+.pde-bank-box {
+    background: linear-gradient(180deg, #151922 0%, #0f1219 100%);
+    border: 1px solid #232b3b;
+    border-radius: 6px;
+    padding: 10px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.04), 0 6px 14px rgba(0,0,0,.32);
+}
+
+.pde-card {
+    min-height: 62px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 8px;
+}
+
+.pde-card b,
+.pde-bank-box b {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+.pde-card span,
+.pde-bank-box span {
+    color: #8b98ad;
+    font-size: 10px;
+}
+
+.pde-bank-panel {
+    display: grid;
+    gap: 10px;
+}
+
+.pde-bank-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.pde-bank-box {
+    display: grid;
+    gap: 6px;
+}
+
+.pde-bank-box label {
+    color: #fff;
+    font-size: 11px;
+}
+
+.pde-bank-box input {
+    width: 48px;
+    height: 20px;
+    border-radius: 4px;
+    background: #020304;
+    border: 1px solid #384154;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+}
+
+@media (max-width: 767px) {
+    #pocket-dual-engine {
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .pde-top {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .pde-title {
+        font-size: 10px;
+    }
+
+    .pde-status-pill {
+        width: 100%;
+        max-width: 100%;
+        justify-content: center;
+        text-align: center;
+        white-space: normal;
+        line-height: 1.3;
+        padding: 8px 10px;
+        font-size: 9px;
+    }
+
+    .pde-status-pill small {
+        font-size: 8px;
+    }
+
+    .pde-mode-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 70px;
+        width: 100%;
+    }
+
+    .pde-btn {
+        min-width: 0;
+        width: 100%;
+        font-size: 8px;
+        padding: 6px 3px;
+    }
+
+    .pde-grid,
+    .pde-bank-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================================
+   MOBILE TOUCH SIGNAL CHAIN DRAG
+   ========================================================== */
+
+@media (max-width: 767px) {
+    .chain-module[data-module-id] {
+        position: relative !important;
+        padding-top: 18px !important;
+        padding-bottom: 18px !important;
+        min-height: 84px !important;
+        touch-action: none !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
+        cursor: grab !important;
+    }
+
+    .chain-module[data-module-id]::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: -10px;
+        bottom: -10px;
+        z-index: 1;
+    }
+
+    .chain-module[data-module-id] > * {
+        position: relative;
+        z-index: 2;
+    }
+
+    .chain-module.pde-dragging {
+        opacity: .75 !important;
+        transform: scale(.96) !important;
+        border-color: #00fff5 !important;
+        box-shadow: 0 0 18px rgba(0,255,245,.45) !important;
+        z-index: 999999 !important;
+    }
+
+    .chain-module.pde-drag-target {
+        outline: 2px dashed #ffd000 !important;
+        outline-offset: 4px !important;
+    }
+}
